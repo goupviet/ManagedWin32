@@ -1,0 +1,59 @@
+using System;
+using System.Windows;
+using System.Windows.Interop;
+using ManagedWin32.Api;
+using System.Runtime.InteropServices;
+
+namespace ManagedWin32
+{
+    public class KeyboardHook : IDisposable
+    {
+        #region Fields
+        WindowInteropHelper host;
+        bool IsDisposed = false;
+        int Identifier;
+
+        public Window Window { get; private set; }
+
+        public VirtualKeyCodes Key { get; private set; }
+
+        public ModifierKeyCodes Modifiers { get; private set; }
+        #endregion
+        
+        public KeyboardHook(Window Window, VirtualKeyCodes Key, ModifierKeyCodes Modifiers)
+        {
+            this.Key = Key;
+            this.Modifiers = Modifiers;
+
+            this.Window = Window;
+            host = new WindowInteropHelper(Window);
+
+            Identifier = Window.GetHashCode();
+
+            User32.RegisterHotKey(host.Handle, Identifier, Modifiers, Key);
+
+            ComponentDispatcher.ThreadPreprocessMessage += ProcessMessage;
+        }
+
+        void ProcessMessage(ref MSG msg, ref bool handled)
+        {
+            if ((msg.message == (int)WindowsMessage.HOTKEY) && (msg.wParam.ToInt32() == Identifier) && (Triggered != null))
+                Triggered();
+        }
+
+        public event Action Triggered;
+
+        public void Dispose()
+        {
+            if (!IsDisposed)
+            {
+                ComponentDispatcher.ThreadPreprocessMessage -= ProcessMessage;
+
+                User32.UnregisterHotKey(host.Handle, Identifier);
+                Window = null;
+                host = null;
+            }
+            IsDisposed = true;
+        }
+    }
+}

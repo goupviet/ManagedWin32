@@ -1,17 +1,14 @@
-using System;
+﻿using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using System.Text;
+using ManagedWin32.Api;
 using Microsoft.Win32;
 
 namespace ManagedWin32
 {
     public class IconPickerDialog : CommonDialog
     {
-        const int MAX_PATH = 260;
-
-        [DllImport("shell32.dll", EntryPoint = "#62", SetLastError = true)]
-        public static extern bool SHPickIconDialog(IntPtr hWnd, StringBuilder pszFilename, int cchFilenameMax, out int pnIconIndex);
+        const int  MAX_PATH = 260;
 
         [DefaultValue(default(string))]
         public string FileName { get; set; }
@@ -24,7 +21,7 @@ namespace ManagedWin32
             var buf = new StringBuilder(FileName, MAX_PATH);
             int index;
 
-            bool ok = SHPickIconDialog(hwndOwner, buf, MAX_PATH, out index);
+            bool ok = User32.SHPickIconDialog(hwndOwner, buf, MAX_PATH, out index);
             if (ok)
             {
                 FileName = Environment.ExpandEnvironmentVariables(buf.ToString());
