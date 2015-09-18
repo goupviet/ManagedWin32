@@ -5,13 +5,6 @@ using ManagedWin32.Api;
 
 namespace ManagedWin32
 {
-    public static class Screen
-    {
-        public static int Width { get { return User32.GetSystemMetrics(SystemMetrics.CXSCREEN); } }
-
-        public static int Height { get { return User32.GetSystemMetrics(SystemMetrics.CYSCREEN); } }
-    }
-
     public static class ScreenCapture
     {
         public static Bitmap CaptureDesktop()
@@ -21,14 +14,14 @@ namespace ManagedWin32
             {
                 using (var hMemDC = DeviceContext.CreateCompatible(hDC))
                 {
-                    using (hBitmap = hBitmap.CreateCompatible(hDC, Screen.Width, Screen.Height))
+                    using (hBitmap = hBitmap.CreateCompatible(hDC, SystemParams.ScreenWidth, SystemParams.ScreenHeight))
                     {
                         if (hBitmap.Handle != IntPtr.Zero)
                         {
                             hBitmap hOld = hMemDC.SelectObject(hBitmap);
 
-                            DeviceContext.BitBlt(hMemDC, 0, 0, Screen.Width, Screen.Height, hDC, 0, 0, PatBltTypes.SRCCOPY);
-
+                            DeviceContext.BitBlt(hMemDC, 0, 0, SystemParams.ScreenWidth, SystemParams.ScreenHeight, hDC, 0, 0, PatBltTypes.SRCCOPY);
+                            
                             hMemDC.SelectObject(hOld);
                             return hBitmap.Bitmap;
                         }
@@ -124,11 +117,11 @@ namespace ManagedWin32
 
         public static Bitmap CaptureScreen()
         {
-            var bitmap = new Bitmap(Screen.Width, Screen.Height);
+            var bitmap = new Bitmap(SystemParams.ScreenWidth, SystemParams.ScreenHeight);
 
             using (var graphics = Graphics.FromImage(bitmap))
             {
-                graphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(Screen.Width, Screen.Height));
+                graphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(SystemParams.ScreenWidth, SystemParams.ScreenHeight));
                 return bitmap;
             }
         }

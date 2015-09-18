@@ -118,7 +118,6 @@ namespace ManagedWin32.Api
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
         public RGBQuad[] bmiColors;
     }
-    #endregion
 
     /// <summary>
     /// The INPUT structure is used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks. (see: http://msdn.microsoft.com/en-us/library/ms646270(VS.85).aspx)
@@ -279,6 +278,7 @@ namespace ManagedWin32.Api
         /// </summary>
         public UInt16 ParamH;
     }
+    #endregion
 
     #region Enums
     public enum SystemInfoParamsAction
@@ -370,248 +370,6 @@ namespace ManagedWin32.Api
         GETWHEELSCROLLLINES = 104
     }
 
-    public enum WindowsMessage
-    {
-        NULL = 0,
-        CREATE = 1,
-        DESTROY = 2,
-        MOVE = 3,
-        SIZE = 5,
-        ACTIVATE = 6,
-        SETFOCUS = 7,
-        KILLFOCUS = 8,
-        ENABLE = 10,
-        SETREDRAW = 11,
-        SETTEXT = 12,
-        GETTEXT = 13,
-        GETTEXTLENGTH = 14,
-        PAINT = 15,
-        Close = 16,
-        QUERYENDSESSION = 17,
-        QUIT = 18,
-        QUERYOPEN = 19,
-        ERASEBKGND = 20,
-        SYSCOLORCHANGE = 21,
-        ENDSESSION = 22,
-        SHOWWINDOW = 24,
-        CTLCOLOR = 25,
-        SETTINGCHANGE = 26,
-        WININICHANGE = 26,
-        DEVMODECHANGE = 27,
-        ACTIVATEAPP = 28,
-        FONTCHANGE = 29,
-        TIMECHANGE = 30,
-        CANCELMODE = 31,
-        SETCURSOR = 32,
-        TABLET_MAXOFFSET = 32,
-        MOUSEACTIVATE = 33,
-        CHILDACTIVATE = 34,
-        QUEUESYNC = 35,
-        GETMINMAXINFO = 36,
-        PAINTICON = 38,
-        ICONERASEBKGND = 39,
-        NEXTDLGCTL = 40,
-        SPOOLERSTATUS = 42,
-        DRAWITEM = 43,
-        MEASUREITEM = 44,
-        DELETEITEM = 45,
-        VKEYTOITEM = 46,
-        CHARTOITEM = 47,
-        SETFONT = 48,
-        GETFONT = 49,
-        SETHOTKEY = 50,
-        GETHOTKEY = 51,
-        QUERYDRAGICON = 55,
-        COMPAREITEM = 57,
-        GETOBJECT = 61,
-        COMPACTING = 65,
-        COMMNOTIFY = 68,
-        WINDOWPOSCHANGING = 70,
-        WINDOWPOSCHANGED = 71,
-        POWER = 72,
-        COPYDATA = 74,
-        CANCELJOURNAL = 75,
-        NOTIFY = 78,
-        INPUTLANGCHANGEREQUEST = 80,
-        INPUTLANGCHANGE = 81,
-        TCARD = 82,
-        HELP = 83,
-        USERCHANGED = 84,
-        NOTIFYFORMAT = 85,
-        CONTEXTMENU = 123,
-        STYLECHANGING = 124,
-        STYLECHANGED = 125,
-        DISPLAYCHANGE = 126,
-        GETICON = 127,
-        SETICON = 128,
-        NCCREATE = 129,
-        NCDESTROY = 130,
-        NCCALCSIZE = 131,
-        NCHITTEST = 132,
-        NCPAINT = 133,
-        NCACTIVATE = 134,
-        GETDLGCODE = 135,
-        SYNCPAINT = 136,
-        MOUSEQUERY = 155,
-        NCMOUSEMOVE = 160,
-        NCLBUTTONDOWN = 161,
-        NCLBUTTONUP = 162,
-        NCLBUTTONDBLCLK = 163,
-        NCRBUTTONDOWN = 164,
-        NCRBUTTONUP = 165,
-        NCRBUTTONDBLCLK = 166,
-        NCMBUTTONDOWN = 167,
-        NCMBUTTONUP = 168,
-        NCMBUTTONDBLCLK = 169,
-        NCXBUTTONDOWN = 171,
-        NCXBUTTONUP = 172,
-        NCXBUTTONDBLCLK = 173,
-        INPUT = 255,
-        KEYDOWN = 256,
-        KEYFIRST = 256,
-        KEYUP = 257,
-        CHAR = 258,
-        DEADCHAR = 259,
-        SYSKEYDOWN = 260,
-        SYSKEYUP = 261,
-        SYSCHAR = 262,
-        SYSDEADCHAR = 263,
-        KEYLAST = 264,
-        IME_STARTCOMPOSITION = 269,
-        IME_ENDCOMPOSITION = 270,
-        IME_COMPOSITION = 271,
-        IME_KEYLAST = 271,
-        INITDIALOG = 272,
-        COMMAND = 273,
-        SYSCOMMAND = 274,
-        TIMER = 275,
-        HSCROLL = 276,
-        VSCROLL = 277,
-        INITMENU = 278,
-        INITMENUPOPUP = 279,
-        MENUSELECT = 287,
-        MENUCHAR = 288,
-        ENTERIDLE = 289,
-        UNINITMENUPOPUP = 293,
-        CHANGEUISTATE = 295,
-        UPDATEUISTATE = 296,
-        QUERYUISTATE = 297,
-        CTLCOLORMSGBOX = 306,
-        CTLCOLOREDIT = 307,
-        CTLCOLORLISTBOX = 308,
-        CTLCOLORBTN = 309,
-        CTLCOLORDLG = 310,
-        CTLCOLORSCROLLBAR = 311,
-        CTLCOLORSTATIC = 312,
-        MOUSEFIRST = 512,
-        MOUSEMOVE = 512,
-        LBUTTONDOWN = 513,
-        LBUTTONUP = 514,
-        LBUTTONDBLCLK = 515,
-        RBUTTONDOWN = 516,
-        RBUTTONUP = 517,
-        RBUTTONDBLCLK = 518,
-        MBUTTONDOWN = 519,
-        MBUTTONUP = 520,
-        MBUTTONDBLCLK = 521,
-        MOUSEWHEEL = 522,
-        XBUTTONDOWN = 523,
-        XBUTTONUP = 524,
-        XBUTTONDBLCLK = 525,
-        MOUSEHWHEEL = 526,
-        MOUSELAST = 526,
-        PARENTNOTIFY = 528,
-        ENTERMENULOOP = 529,
-        EXITMENULOOP = 530,
-        NEXTMENU = 531,
-        SIZING = 532,
-        CAPTURECHANGED = 533,
-        MOVING = 534,
-        POWERBROADCAST = 536,
-        DEVICECHANGE = 537,
-        MDICREATE = 544,
-        MDIDESTROY = 545,
-        MDIACTIVATE = 546,
-        MDIRESTORE = 547,
-        MDINEXT = 548,
-        MDIMAXIMIZE = 549,
-        MDITILE = 550,
-        MDICASCADE = 551,
-        MDIICONARRANGE = 552,
-        MDIGETACTIVE = 553,
-        MDISETMENU = 560,
-        ENTERSIZEMOVE = 561,
-        EXITSIZEMOVE = 562,
-        DROPFILES = 563,
-        MDIREFRESHMENU = 564,
-        IME_SETCONTEXT = 641,
-        IME_NOTIFY = 642,
-        IME_CONTROL = 643,
-        IME_COMPOSITIONFULL = 644,
-        IME_SELECT = 645,
-        IME_CHAR = 646,
-        IME_REQUEST = 648,
-        IME_KEYDOWN = 656,
-        IME_KEYUP = 657,
-        MOUSEHOVER = 673,
-        NCMOUSELEAVE = 674,
-        MOUSELEAVE = 675,
-        WTSSESSION_CHANGE = 689,
-        TABLET_DEFBASE = 704,
-        TABLET_ADDED = 712,
-        TABLET_DELETED = 713,
-        TABLET_FLICK = 715,
-        TABLET_QUERYSYSTEMGESTURESTATUS = 716,
-        CUT = 768,
-        COPY = 769,
-        PASTE = 770,
-        CLEAR = 771,
-        UNDO = 772,
-        RENDERFORMAT = 773,
-        RENDERALLFORMATS = 774,
-        DESTROYCLIPBOARD = 775,
-        DRAWCLIPBOARD = 776,
-        PAINTCLIPBOARD = 777,
-        VSCROLLCLIPBOARD = 778,
-        SIZECLIPBOARD = 779,
-        ASKCBFORMATNAME = 780,
-        CHANGECBCHAIN = 781,
-        HSCROLLCLIPBOARD = 782,
-        QUERYNEWPALETTE = 783,
-        PALETTEISCHANGING = 784,
-        PALETTECHANGED = 785,
-        HOTKEY = 786,
-        PRINT = 791,
-        PRINTCLIENT = 792,
-        APPCOMMAND = 793,
-        THEMECHANGED = 794,
-        DWMCOMPOSITIONCHANGED = 798,
-        DWMNCRENDERINGCHANGED = 799,
-        DWMCOLORIZATIONCOLORCHANGED = 800,
-        DWMWINDOWMAXIMIZEDCHANGE = 801,
-        DWMSENDICONICTHUMBNAIL = 803,
-        DWMSENDICONICLIVEPREVIEWBITMAP = 806,
-        HANDHELDFIRST = 856,
-        HANDHELDLAST = 863,
-        AFXFIRST = 864,
-        AFXLAST = 895,
-        PENWINFIRST = 896,
-        PENWINLAST = 911,
-        USER = 1024,
-        APP = 32768
-    }
-    #endregion
-
-    #region Delegates
-    public delegate bool EnumDesktopWindowsProc(IntPtr hDesktop, IntPtr lParam);
-
-    /// <summary>
-    /// Callback delegate which is used by the Windows API to
-    /// submit window messages.
-    /// </summary>
-    public delegate IntPtr WindowProcedureHandler(IntPtr hwnd, uint uMsg, IntPtr wparam, IntPtr lparam);
-    #endregion
-
     public enum WindowStates
     {
         Hidden = 0,
@@ -621,6 +379,224 @@ namespace ManagedWin32.Api
         Inactive = 4,
         Restore = 9,
         Default = 10
+    }
+
+    /// <summary>Specifies the boot mode in which the system was started.</summary>
+    public enum BootMode
+    {
+        /// <summary>The computer was started in the standard boot mode. This mode uses the normal drivers and settings for the system.</summary>
+        Normal,
+        /// <summary>The computer was started in safe mode without network support. This mode uses a limited drivers and settings profile.</summary>
+        FailSafe,
+        /// <summary>The computer was started in safe mode with network support. This mode uses a limited drivers and settings profile, and loads the services needed to start networking.</summary>
+        FailSafeWithNetwork
+    }
+
+    public enum BeepType
+    {
+        Beep = 0,
+        Hand = 16,
+        Question = 32,
+        Exclamation = 48,
+        Asterisk = 64
+    }
+
+    public enum SystemMetrics
+    {
+        CXSCREEN = 0,
+        CYSCREEN = 1,
+
+        CXVSCROLL = 2,
+        CYHSCROLL = 3,
+
+        CYCAPTION = 4,
+
+        CXBORDER = 5,
+        CYBORDER = 6,
+
+        CYVTHUMB = 9,
+        CXHTHUMB = 10,
+
+        CXICON = 11,
+        CYICON = 12,
+
+        CXCURSOR = 13,
+        CYCURSOR = 14,
+
+        CYMENU = 15,
+
+        CYKANJIWINDOW = 18,
+
+        MOUSEPRESENT = 19,
+
+        CYVSCROLL = 20,
+        CXHSCROLL = 21,
+
+        DEBUG = 22,
+
+        SWAPBUTTON = 23,
+
+        CXMIN = 28,
+
+        CYMIN = 29,
+
+        CXSIZE = 30,
+        CYSIZE = 31,
+
+        CXFRAME = 32,
+        CYFRAME = 33,
+
+        CYFOCUSBORDER = 84,
+        CXFOCUSBORDER = 83,
+
+        CYSIZEFRAME = 33,
+        CXSIZEFRAME = 32,
+
+        CXMINTRACK = 34,
+        CYMINTRACK = 35,
+
+        CXDOUBLECLK = 36,
+        CYDOUBLECLK = 37,
+
+        CXICONSPACING = 38,
+
+        CYICONSPACING = 39,
+
+        MENUDROPALIGNMENT = 40,
+
+        PENWINDOWS = 41,
+
+        DBCSENABLED = 42,
+
+        CMOUSEBUTTONS = 43,
+
+        CXFIXEDFRAME = 7,
+
+        CYFIXEDFRAME = 8,
+
+        SECURE = 44,
+
+        CXEDGE = 45,
+        CYEDGE = 46,
+
+        CXMINSPACING = 47,
+        CYMINSPACING = 48,
+
+        CXSMICON = 49,
+        CYSMICON = 50,
+
+        CYSMCAPTION = 51,
+
+        CXSMSIZE = 52,
+
+        CYSMSIZE = 53,
+
+        CXMENUSIZE = 54,
+
+        CYMENUSIZE = 55,
+
+        ARRANGE = 56,
+
+        CXMINIMIZED = 57,
+
+        CYMINIMIZED = 58,
+
+        CXMAXTRACK = 59,
+
+        CYMAXTRACK = 60,
+
+        CXMAXIMIZED = 61,
+
+        CYMAXIMIZED = 62,
+
+        NETWORK = 63,
+
+        CLEANBOOT = 67,
+
+        CXDRAG = 68,
+        CYDRAG = 69,
+
+        SHOWSOUNDS = 70,
+
+        CXMENUCHECK = 71,
+        CYMENUCHECK = 72,
+
+        MIDEASTENABLED = 74,
+
+        MOUSEWHEELPRESENT = 75,
+
+        XVIRTUALSCREEN = 76,
+        YVIRTUALSCREEN = 77,
+
+        CXVIRTUALSCREEN = 78,
+        CYVIRTUALSCREEN = 79,
+
+        CMONITORS = 80,
+
+        SAMEDISPLAYFORMAT = 81,
+
+        REMOTESESSION = 0x1000
+    }
+
+    public enum DesktopAccessRights
+    {
+        CreateWindow = 0x0002,
+        Enumerate = 0x0040,
+        WriteObjects = 0x0080,
+        SwitchDesktop = 0x0100,
+        CreateMenu = 0x0004,
+        HookControl = 0x0008,
+        ReadObjects = 0x0001,
+        JournalRecord = 0x0010,
+        JournalPlayback = 0x0020,
+        AllRights = JournalRecord | JournalPlayback | CreateWindow
+            | Enumerate | WriteObjects | SwitchDesktop
+            | CreateMenu | HookControl | ReadObjects
+    }
+
+    /// <summary>
+    /// Modifier Key Codes
+    /// </summary>
+    [Flags]
+    public enum ModifierKeyCodes : uint
+    {
+        Alt = 1,
+        Control = 2,
+        Shift = 4,
+        Windows = 8
+    }
+
+    /// <summary>
+    /// Virtual Key Codes
+    /// </summary>
+    public enum VirtualKeyCodes : uint
+    {
+        A = 65,
+        B = 66,
+        C = 67,
+        D = 68,
+        E = 69,
+        F = 70,
+        G = 71,
+        H = 72,
+        I = 73,
+        J = 74,
+        K = 75,
+        L = 76,
+        M = 77,
+        N = 78,
+        O = 79,
+        P = 80,
+        Q = 81,
+        R = 82,
+        S = 83,
+        T = 84,
+        U = 85,
+        V = 86,
+        W = 87,
+        X = 88,
+        Y = 89,
+        Z = 90
     }
 
     public enum KeyCode
@@ -1607,8 +1583,6 @@ namespace ManagedWin32.Api
         EnabledPopup = 6
     }
 
-    public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-
     public enum SetWindowPositionFlags
     {
         NoMove = 0x2,
@@ -1635,6 +1609,252 @@ namespace ManagedWin32.Api
         BLACKNESS = 0x00000042,
         WHITENESS = 0x00FF0062
     }
+
+    public enum WindowsMessage
+    {
+        NULL = 0,
+        CREATE = 1,
+        DESTROY = 2,
+        MOVE = 3,
+        SIZE = 5,
+        ACTIVATE = 6,
+        SETFOCUS = 7,
+        KILLFOCUS = 8,
+        ENABLE = 10,
+        SETREDRAW = 11,
+        SETTEXT = 12,
+        GETTEXT = 13,
+        GETTEXTLENGTH = 14,
+        PAINT = 15,
+        Close = 16,
+        QUERYENDSESSION = 17,
+        QUIT = 18,
+        QUERYOPEN = 19,
+        ERASEBKGND = 20,
+        SYSCOLORCHANGE = 21,
+        ENDSESSION = 22,
+        SHOWWINDOW = 24,
+        CTLCOLOR = 25,
+        SETTINGCHANGE = 26,
+        WININICHANGE = 26,
+        DEVMODECHANGE = 27,
+        ACTIVATEAPP = 28,
+        FONTCHANGE = 29,
+        TIMECHANGE = 30,
+        CANCELMODE = 31,
+        SETCURSOR = 32,
+        TABLET_MAXOFFSET = 32,
+        MOUSEACTIVATE = 33,
+        CHILDACTIVATE = 34,
+        QUEUESYNC = 35,
+        GETMINMAXINFO = 36,
+        PAINTICON = 38,
+        ICONERASEBKGND = 39,
+        NEXTDLGCTL = 40,
+        SPOOLERSTATUS = 42,
+        DRAWITEM = 43,
+        MEASUREITEM = 44,
+        DELETEITEM = 45,
+        VKEYTOITEM = 46,
+        CHARTOITEM = 47,
+        SETFONT = 48,
+        GETFONT = 49,
+        SETHOTKEY = 50,
+        GETHOTKEY = 51,
+        QUERYDRAGICON = 55,
+        COMPAREITEM = 57,
+        GETOBJECT = 61,
+        COMPACTING = 65,
+        COMMNOTIFY = 68,
+        WINDOWPOSCHANGING = 70,
+        WINDOWPOSCHANGED = 71,
+        POWER = 72,
+        COPYDATA = 74,
+        CANCELJOURNAL = 75,
+        NOTIFY = 78,
+        INPUTLANGCHANGEREQUEST = 80,
+        INPUTLANGCHANGE = 81,
+        TCARD = 82,
+        HELP = 83,
+        USERCHANGED = 84,
+        NOTIFYFORMAT = 85,
+        CONTEXTMENU = 123,
+        STYLECHANGING = 124,
+        STYLECHANGED = 125,
+        DISPLAYCHANGE = 126,
+        GETICON = 127,
+        SETICON = 128,
+        NCCREATE = 129,
+        NCDESTROY = 130,
+        NCCALCSIZE = 131,
+        NCHITTEST = 132,
+        NCPAINT = 133,
+        NCACTIVATE = 134,
+        GETDLGCODE = 135,
+        SYNCPAINT = 136,
+        MOUSEQUERY = 155,
+        NCMOUSEMOVE = 160,
+        NCLBUTTONDOWN = 161,
+        NCLBUTTONUP = 162,
+        NCLBUTTONDBLCLK = 163,
+        NCRBUTTONDOWN = 164,
+        NCRBUTTONUP = 165,
+        NCRBUTTONDBLCLK = 166,
+        NCMBUTTONDOWN = 167,
+        NCMBUTTONUP = 168,
+        NCMBUTTONDBLCLK = 169,
+        NCXBUTTONDOWN = 171,
+        NCXBUTTONUP = 172,
+        NCXBUTTONDBLCLK = 173,
+        INPUT = 255,
+        KEYDOWN = 256,
+        KEYFIRST = 256,
+        KEYUP = 257,
+        CHAR = 258,
+        DEADCHAR = 259,
+        SYSKEYDOWN = 260,
+        SYSKEYUP = 261,
+        SYSCHAR = 262,
+        SYSDEADCHAR = 263,
+        KEYLAST = 264,
+        IME_STARTCOMPOSITION = 269,
+        IME_ENDCOMPOSITION = 270,
+        IME_COMPOSITION = 271,
+        IME_KEYLAST = 271,
+        INITDIALOG = 272,
+        COMMAND = 273,
+        SYSCOMMAND = 274,
+        TIMER = 275,
+        HSCROLL = 276,
+        VSCROLL = 277,
+        INITMENU = 278,
+        INITMENUPOPUP = 279,
+        MENUSELECT = 287,
+        MENUCHAR = 288,
+        ENTERIDLE = 289,
+        UNINITMENUPOPUP = 293,
+        CHANGEUISTATE = 295,
+        UPDATEUISTATE = 296,
+        QUERYUISTATE = 297,
+        CTLCOLORMSGBOX = 306,
+        CTLCOLOREDIT = 307,
+        CTLCOLORLISTBOX = 308,
+        CTLCOLORBTN = 309,
+        CTLCOLORDLG = 310,
+        CTLCOLORSCROLLBAR = 311,
+        CTLCOLORSTATIC = 312,
+        MOUSEFIRST = 512,
+        MOUSEMOVE = 512,
+        LBUTTONDOWN = 513,
+        LBUTTONUP = 514,
+        LBUTTONDBLCLK = 515,
+        RBUTTONDOWN = 516,
+        RBUTTONUP = 517,
+        RBUTTONDBLCLK = 518,
+        MBUTTONDOWN = 519,
+        MBUTTONUP = 520,
+        MBUTTONDBLCLK = 521,
+        MOUSEWHEEL = 522,
+        XBUTTONDOWN = 523,
+        XBUTTONUP = 524,
+        XBUTTONDBLCLK = 525,
+        MOUSEHWHEEL = 526,
+        MOUSELAST = 526,
+        PARENTNOTIFY = 528,
+        ENTERMENULOOP = 529,
+        EXITMENULOOP = 530,
+        NEXTMENU = 531,
+        SIZING = 532,
+        CAPTURECHANGED = 533,
+        MOVING = 534,
+        POWERBROADCAST = 536,
+        DEVICECHANGE = 537,
+        MDICREATE = 544,
+        MDIDESTROY = 545,
+        MDIACTIVATE = 546,
+        MDIRESTORE = 547,
+        MDINEXT = 548,
+        MDIMAXIMIZE = 549,
+        MDITILE = 550,
+        MDICASCADE = 551,
+        MDIICONARRANGE = 552,
+        MDIGETACTIVE = 553,
+        MDISETMENU = 560,
+        ENTERSIZEMOVE = 561,
+        EXITSIZEMOVE = 562,
+        DROPFILES = 563,
+        MDIREFRESHMENU = 564,
+        IME_SETCONTEXT = 641,
+        IME_NOTIFY = 642,
+        IME_CONTROL = 643,
+        IME_COMPOSITIONFULL = 644,
+        IME_SELECT = 645,
+        IME_CHAR = 646,
+        IME_REQUEST = 648,
+        IME_KEYDOWN = 656,
+        IME_KEYUP = 657,
+        MOUSEHOVER = 673,
+        NCMOUSELEAVE = 674,
+        MOUSELEAVE = 675,
+        WTSSESSION_CHANGE = 689,
+        TABLET_DEFBASE = 704,
+        TABLET_ADDED = 712,
+        TABLET_DELETED = 713,
+        TABLET_FLICK = 715,
+        TABLET_QUERYSYSTEMGESTURESTATUS = 716,
+        CUT = 768,
+        COPY = 769,
+        PASTE = 770,
+        CLEAR = 771,
+        UNDO = 772,
+        RENDERFORMAT = 773,
+        RENDERALLFORMATS = 774,
+        DESTROYCLIPBOARD = 775,
+        DRAWCLIPBOARD = 776,
+        PAINTCLIPBOARD = 777,
+        VSCROLLCLIPBOARD = 778,
+        SIZECLIPBOARD = 779,
+        ASKCBFORMATNAME = 780,
+        CHANGECBCHAIN = 781,
+        HSCROLLCLIPBOARD = 782,
+        QUERYNEWPALETTE = 783,
+        PALETTEISCHANGING = 784,
+        PALETTECHANGED = 785,
+        HOTKEY = 786,
+        PRINT = 791,
+        PRINTCLIENT = 792,
+        APPCOMMAND = 793,
+        THEMECHANGED = 794,
+        DWMCOMPOSITIONCHANGED = 798,
+        DWMNCRENDERINGCHANGED = 799,
+        DWMCOLORIZATIONCOLORCHANGED = 800,
+        DWMWINDOWMAXIMIZEDCHANGE = 801,
+        DWMSENDICONICTHUMBNAIL = 803,
+        DWMSENDICONICLIVEPREVIEWBITMAP = 806,
+        HANDHELDFIRST = 856,
+        HANDHELDLAST = 863,
+        AFXFIRST = 864,
+        AFXLAST = 895,
+        PENWINFIRST = 896,
+        PENWINLAST = 911,
+        USER = 1024,
+        APP = 32768
+    }
+    #endregion
+
+    #region Delegates
+    public delegate bool EnumDesktopWindowsProc(IntPtr hDesktop, IntPtr lParam);
+
+    /// <summary>
+    /// Callback delegate which is used by the Windows API to
+    /// submit window messages.
+    /// </summary>
+    public delegate IntPtr WindowProcedureHandler(IntPtr hwnd, uint uMsg, IntPtr wparam, IntPtr lparam);
+
+    public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+    public delegate bool EnumDesktopProc(string lpszDesktop, IntPtr lParam);
+    #endregion
 
     public class DeviceContext : IDisposable
     {
@@ -1681,225 +1901,15 @@ namespace ManagedWin32.Api
         public void Dispose() { Gdi32.DeleteObject(Handle); }
     }
 
-    /// <summary>Specifies the boot mode in which the system was started.</summary>
-    public enum BootMode
+    public class SystemParams
     {
-        /// <summary>The computer was started in the standard boot mode. This mode uses the normal drivers and settings for the system.</summary>
-        Normal,
-        /// <summary>The computer was started in safe mode without network support. This mode uses a limited drivers and settings profile.</summary>
-        FailSafe,
-        /// <summary>The computer was started in safe mode with network support. This mode uses a limited drivers and settings profile, and loads the services needed to start networking.</summary>
-        FailSafeWithNetwork
-    }
+        public static BootMode BootMode { get { return (BootMode)User32.GetSystemMetrics(SystemMetrics.CLEANBOOT); } }
 
-    public enum BeepType
-    {
-        Beep = 0,
-        Hand = 16,
-        Question = 32,
-        Exclamation = 48,
-        Asterisk = 64
-    }
+        public static bool IsNetworkConnected { get { return (User32.GetSystemMetrics(SystemMetrics.NETWORK) & 1) != 0; } }
 
-    public enum SystemMetrics
-    {
-        CXSCREEN = 0,
-        CYSCREEN = 1,
+        public static int ScreenWidth { get { return User32.GetSystemMetrics(SystemMetrics.CXSCREEN); } }
 
-        CXVSCROLL = 2,
-        CYHSCROLL = 3,
-
-        CYCAPTION = 4,
-
-        CXBORDER = 5,
-        CYBORDER = 6,
-
-        CYVTHUMB = 9,
-        CXHTHUMB = 10,
-
-        CXICON = 11,
-        CYICON = 12,
-
-        CXCURSOR = 13,
-        CYCURSOR = 14,
-
-        CYMENU = 15,
-
-        CYKANJIWINDOW = 18,
-
-        MOUSEPRESENT = 19,
-
-        CYVSCROLL = 20,
-        CXHSCROLL = 21,
-
-        DEBUG = 22,
-
-        SWAPBUTTON = 23,
-
-        CXMIN = 28,
-
-        CYMIN = 29,
-
-        CXSIZE = 30,
-        CYSIZE = 31,
-
-        CXFRAME = 32,
-        CYFRAME = 33,
-
-        CYFOCUSBORDER = 84,
-        CXFOCUSBORDER = 83,
-
-        CYSIZEFRAME = 33,
-        CXSIZEFRAME = 32,
-
-        CXMINTRACK = 34,
-        CYMINTRACK = 35,
-
-        CXDOUBLECLK = 36,
-        CYDOUBLECLK = 37,
-
-        CXICONSPACING = 38,
-
-        CYICONSPACING = 39,
-
-        MENUDROPALIGNMENT = 40,
-
-        PENWINDOWS = 41,
-
-        DBCSENABLED = 42,
-
-        CMOUSEBUTTONS = 43,
-
-        CXFIXEDFRAME = 7,
-
-        CYFIXEDFRAME = 8,
-
-        SECURE = 44,
-
-        CXEDGE = 45,
-        CYEDGE = 46,
-
-        CXMINSPACING = 47,
-        CYMINSPACING = 48,
-
-        CXSMICON = 49,
-        CYSMICON = 50,
-
-        CYSMCAPTION = 51,
-
-        CXSMSIZE = 52,
-
-        CYSMSIZE = 53,
-
-        CXMENUSIZE = 54,
-
-        CYMENUSIZE = 55,
-
-        ARRANGE = 56,
-
-        CXMINIMIZED = 57,
-
-        CYMINIMIZED = 58,
-
-        CXMAXTRACK = 59,
-
-        CYMAXTRACK = 60,
-
-        CXMAXIMIZED = 61,
-
-        CYMAXIMIZED = 62,
-
-        NETWORK = 63,
-
-        CLEANBOOT = 67,
-
-        CXDRAG = 68,
-        CYDRAG = 69,
-
-        SHOWSOUNDS = 70,
-
-        CXMENUCHECK = 71,
-        CYMENUCHECK = 72,
-
-        MIDEASTENABLED = 74,
-
-        MOUSEWHEELPRESENT = 75,
-
-        XVIRTUALSCREEN = 76,
-        YVIRTUALSCREEN = 77,
-
-        CXVIRTUALSCREEN = 78,
-        CYVIRTUALSCREEN = 79,
-
-        CMONITORS = 80,
-
-        SAMEDISPLAYFORMAT = 81,
-
-        REMOTESESSION = 0x1000
-    }
-
-    public delegate bool EnumDesktopProc(string lpszDesktop, IntPtr lParam);
-    //public delegate bool EnumDesktopWindowsProc(IntPtr desktopHandle, IntPtr lParam);
-
-    public enum DesktopAccessRights
-    {
-        CreateWindow = 0x0002,
-        Enumerate = 0x0040,
-        WriteObjects = 0x0080,
-        SwitchDesktop = 0x0100,
-        CreateMenu = 0x0004,
-        HookControl = 0x0008,
-        ReadObjects = 0x0001,
-        JournalRecord = 0x0010,
-        JournalPlayback = 0x0020,
-        AllRights = JournalRecord | JournalPlayback | CreateWindow
-            | Enumerate | WriteObjects | SwitchDesktop
-            | CreateMenu | HookControl | ReadObjects
-    }
-
-    /// <summary>
-    /// Modifier Key Codes
-    /// </summary>
-    [Flags]
-    public enum ModifierKeyCodes : uint
-    {
-        Alt = 1,
-        Control = 2,
-        Shift = 4,
-        Windows = 8
-    }
-
-    /// <summary>
-    /// Virtual Key Codes
-    /// </summary>
-    public enum VirtualKeyCodes : uint
-    {
-        A = 65,
-        B = 66,
-        C = 67,
-        D = 68,
-        E = 69,
-        F = 70,
-        G = 71,
-        H = 72,
-        I = 73,
-        J = 74,
-        K = 75,
-        L = 76,
-        M = 77,
-        N = 78,
-        O = 79,
-        P = 80,
-        Q = 81,
-        R = 82,
-        S = 83,
-        T = 84,
-        U = 85,
-        V = 86,
-        W = 87,
-        X = 88,
-        Y = 89,
-        Z = 90
+        public static int ScreenHeight { get { return User32.GetSystemMetrics(SystemMetrics.CYSCREEN); } }
     }
 
     public static class User32
@@ -1921,6 +1931,7 @@ namespace ManagedWin32.Api
         public static extern bool SystemParametersInfo(SystemInfoParamsAction uAction, int uParam, IntPtr lpvParam, int flags);
         #endregion
 
+        #region Desktop
         [DllImport("user32.dll")]
         public static extern IntPtr CreateDesktop(string lpszDesktop, IntPtr lpszDevice, IntPtr pDevmode, int dwFlags, DesktopAccessRights dwDesiredAccess, IntPtr lpsa);
 
@@ -1940,9 +1951,6 @@ namespace ManagedWin32.Api
         public static extern bool EnumDesktops(IntPtr hwinsta, EnumDesktopProc lpEnumFunc, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetProcessWindowStation();
-
-        [DllImport("user32.dll")]
         public static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDesktopWindowsProc lpfn, IntPtr lParam);
 
         [DllImport("user32.dll")]
@@ -1950,22 +1958,16 @@ namespace ManagedWin32.Api
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetThreadDesktop(int dwThreadId);
+        #endregion
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetProcessWindowStation();
 
         [DllImport("user32.dll")]
         public static extern bool GetUserObjectInformation(IntPtr hObj, int nIndex, IntPtr pvInfo, int nLength, ref int lpnLengthNeeded);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern int GetSystemMetrics(SystemMetrics nIndex);
-
-        public static BootMode BootMode
-        {
-            get { return (BootMode)GetSystemMetrics(SystemMetrics.CLEANBOOT); }
-        }
-
-        public static bool IsNetworkConnected
-        {
-            get { return (GetSystemMetrics(SystemMetrics.NETWORK) & 1) != 0; }
-        }
 
         [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
         public static extern bool ExitWindowsEx(ShutdownFlags Flag, int Reason);
@@ -1976,14 +1978,13 @@ namespace ManagedWin32.Api
         [DllImport("shell32.dll", EntryPoint = "#62", SetLastError = true)]
         public static extern bool SHPickIconDialog(IntPtr hWnd, StringBuilder pszFilename, int cchFilenameMax, out int pnIconIndex);
 
+        #region HotKey
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, ModifierKeyCodes fdModifiers, VirtualKeyCodes vk);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        #endregion
 
         [DllImport("user32.dll")]
         public static extern int PostMessage(IntPtr hWnd, WindowsMessage wMsg, int wParam, int lParam);
@@ -1994,6 +1995,7 @@ namespace ManagedWin32.Api
         [DllImport("user32.dll")]
         public static extern IntPtr AttachThreadInput(IntPtr idAttach, IntPtr idAttachTo, int fAttach);
 
+        #region Windows Input
         /// <summary>
         /// The SendInput function synthesizes keystrokes, mouse motions, and button clicks.
         /// </summary>
@@ -2075,6 +2077,7 @@ namespace ManagedWin32.Api
         /// </remarks>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern short GetKeyState(ushort virtualKeyCode);
+        #endregion
 
         /// <summary>
         /// The GetMessageExtraInfo function retrieves the extra message information for the current thread. Extra message information is an application- or driver-defined value associated with the current thread's message queue. 
@@ -2199,6 +2202,7 @@ namespace ManagedWin32.Api
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetDC(IntPtr hWnd);
 
+        #region Window
         [DllImport("user32.dll")]
         public static extern IntPtr GetDesktopWindow();
 
@@ -2207,6 +2211,9 @@ namespace ManagedWin32.Api
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
         public static extern bool ShowWindowAsync(IntPtr hWnd, WindowStates nCmdShow);
@@ -2261,5 +2268,6 @@ namespace ManagedWin32.Api
 
         [DllImport("user32.dll")]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPositionFlags wFlags);
+        #endregion
     }
 }
