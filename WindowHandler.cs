@@ -35,6 +35,8 @@ namespace ManagedWin32
         {
             get
             {
+                if (Handle == DesktopWindow.Handle) return "Desktop";
+
                 StringBuilder title = new StringBuilder(User32.GetWindowTextLength(Handle) + 1);
                 User32.GetWindowText(Handle, title, title.Capacity);
                 return title.ToString();
@@ -198,6 +200,11 @@ namespace ManagedWin32
         {
             //return the title if it has one, if not return the process name
             return Title.Length > 0 ? Title : Process.ProcessName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is WindowHandler) ? Handle == (obj as WindowHandler).Handle : false;
         }
         
         public Size Size
