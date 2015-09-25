@@ -4,23 +4,6 @@ using System.Text;
 
 namespace ManagedWin32.Api
 {
-    #region Structures
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct TokPriv1Luid
-    {
-        public int Count;
-        public long Luid;
-        public int Attr;
-
-        public TokPriv1Luid(int c, long l, int a)
-        {
-            Count = c;
-            Luid = l;
-            Attr = a;
-        }
-    }
-    #endregion
-
     public static class AdvApi32
     {
         public const int SE_PRIVILEGE_ENABLED = 0x00000002,

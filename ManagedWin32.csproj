@@ -42,11 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AdvApi32.cs" />
+    <Compile Include="Api\Enumerations.cs" />
+    <Compile Include="Api\Delegates.cs" />
     <Compile Include="Api\DWMApi.cs" />
     <Compile Include="Api\Gdi32.cs" />
     <Compile Include="Api\Kernel32.cs" />
     <Compile Include="Api\PowrProf.cs" />
     <Compile Include="Api\Shell32.cs" />
+    <Compile Include="Api\Structures.cs" />
     <Compile Include="Api\User32.cs" />
     <Compile Include="BitHelper.cs" />
     <Compile Include="Constraints.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="CaptureScreen.cs" />
     <Compile Include="ScreenSaver.cs" />
     <Compile Include="SoundPlayer.cs" />
+    <Compile Include="SystemParams.cs" />
     <Compile Include="WindowHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

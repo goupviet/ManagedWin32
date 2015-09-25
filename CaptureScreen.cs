@@ -9,26 +9,20 @@ namespace ManagedWin32
     {
         public static Bitmap CaptureDesktop()
         {
-            hBitmap hBitmap;
-            using (DeviceContext hDC = WindowHandler.DesktopWindow.DeviceContext)
-            {
-                using (var hMemDC = DeviceContext.CreateCompatible(hDC))
-                {
-                    using (hBitmap = hBitmap.CreateCompatible(hDC, SystemParams.ScreenWidth, SystemParams.ScreenHeight))
-                    {
-                        if (hBitmap.Handle != IntPtr.Zero)
-                        {
-                            hBitmap hOld = hMemDC.SelectObject(hBitmap);
+            IntPtr hDC = User32.GetWindowDC(IntPtr.Zero),
+                hMemDC = Gdi32.CreateCompatibleDC(hDC),
+                hBitmap = Gdi32.CreateCompatibleBitmap(hDC, SystemParams.ScreenWidth, SystemParams.ScreenHeight);
 
-                            DeviceContext.BitBlt(hMemDC, 0, 0, SystemParams.ScreenWidth, SystemParams.ScreenHeight, hDC, 0, 0, PatBltTypes.SRCCOPY);
-                            
-                            hMemDC.SelectObject(hOld);
-                            return hBitmap.Bitmap;
-                        }
-                        return null;
-                    }
-                }
+            if (hBitmap != IntPtr.Zero)
+            {
+                IntPtr hOld = Gdi32.SelectObject(hMemDC, hBitmap);
+
+                Gdi32.BitBlt(hMemDC, 0, 0, SystemParams.ScreenWidth, SystemParams.ScreenHeight, hDC, 0, 0, PatBltTypes.SRCCOPY);
+
+                Gdi32.SelectObject(hMemDC, hOld);
+                return Bitmap.FromHbitmap(hBitmap);
             }
+            return null;
         }
 
         public static Bitmap CaptureCursor(ref int x, ref int y)
@@ -85,34 +79,40 @@ namespace ManagedWin32
             return null;
         }
 
-        public static Bitmap Capture(this WindowHandler Window)
+        public static Bitmap Capture(IntPtr Window)
         {
-            using (var SourceDC = Window.DeviceContext)
+            IntPtr SourceDC = User32.GetWindowDC(Window),
+                MemoryDC = Gdi32.CreateCompatibleDC(SourceDC);
+
+            var rect = new RECT();
+            User32.GetWindowRect(Window, ref rect);
+
+            int Width = rect.Right - rect.Left,
+                    Height = rect.Bottom - rect.Top;
+
+            // Create a bitmap we can copy it to
+            IntPtr hBmp = Gdi32.CreateCompatibleBitmap(SourceDC, Width, Height);
+
+            if (hBmp != null)
             {
-                // create a device context we can copy to
-                using (var MemoryDC = DeviceContext.CreateCompatible(SourceDC))
+                try
                 {
-                    var size = Window.Size;
-                    int Width = size.Width, Height = size.Height;
+                    // select the bitmap object
+                    IntPtr hOld = Gdi32.SelectObject(MemoryDC, hBmp);
 
-                    // create a bitmap we can copy it to,
-                    // using GetDeviceCaps to get the width/height
-                    using (var hBmp = hBitmap.CreateCompatible(SourceDC, Width, Height))
-                    {
-                        // select the bitmap object
-                        hBitmap hOld = MemoryDC.SelectObject(hBmp);
+                    // bitblt over
+                    Gdi32.BitBlt(MemoryDC, 0, 0, Width, Height, SourceDC, 0, 0, PatBltTypes.SRCCOPY);
 
-                        // bitblt over
-                        DeviceContext.BitBlt(MemoryDC, 0, 0, Width, Height, SourceDC, 0, 0, PatBltTypes.SRCCOPY);
+                    // restore selection
+                    Gdi32.SelectObject(MemoryDC, hOld);
 
-                        // restore selection
-                        MemoryDC.SelectObject(hOld);
-
-                        // get a .NET image object for it
-                        return hBmp.Bitmap;
-                    }
+                    // get a .NET image object for it
+                    return Bitmap.FromHbitmap(hBmp);
                 }
+                finally { Gdi32.DeleteObject(hBmp); }
             }
+
+            return null;
         }
 
         public static Bitmap CaptureScreen()

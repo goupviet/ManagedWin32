@@ -32,7 +32,7 @@ namespace ManagedWin32
                 if (bResult)
                 {
                     Marshal.FreeHGlobal(rawRect);
-                    return new Rectangle(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+                    return new Rectangle(rc.Left, rc.Top, rc.Right - rc.Left, rc.Bottom - rc.Top);
                 }
 
                 return new Rectangle(0, 0, 0, 0);

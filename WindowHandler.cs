@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
@@ -187,14 +186,7 @@ namespace ManagedWin32
                 User32.SetWindowPos(Handle, IntPtr.Zero, value.X, value.Y, 0, 0, SetWindowPositionFlags.NoSize | SetWindowPositionFlags.NoZOrder);
             }
         }
-
-        static IntPtr Bottom { get { return (IntPtr)1; } }
-        static IntPtr NoTopMost { get { return (IntPtr)(-2); } }
-        static IntPtr Top { get { return (IntPtr)0; } }
-        static IntPtr TopMost { get { return (IntPtr)(-1); } }
-
-        public DeviceContext DeviceContext { get { return new DeviceContext(this); } }
-
+        
         //Override ToString() 
         public override string ToString()
         {
@@ -216,8 +208,8 @@ namespace ManagedWin32
 
                 return new Size()
                 {
-                    Width = rect.right - rect.left,
-                    Height = rect.bottom - rect.top
+                    Width = rect.Right - rect.Left,
+                    Height = rect.Bottom - rect.Top
                 };
             }
             set { User32.SetWindowPos(Handle, IntPtr.Zero, 0, 0, value.Width, value.Height, SetWindowPositionFlags.NoMove | SetWindowPositionFlags.NoZOrder); }
