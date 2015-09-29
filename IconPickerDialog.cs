@@ -16,19 +16,19 @@ namespace ManagedWin32
         [DefaultValue(0)]
         public int IconIndex { get; set; }
 
-        protected override bool RunDialog(IntPtr hwndOwner)
+        protected override bool RunDialog(IntPtr OwnerWindow)
         {
-            var buf = new StringBuilder(FileName, MAX_PATH);
-            int index;
+            var PathBuffer = new StringBuilder(FileName, MAX_PATH);
+            int i;
 
-            bool ok = User32.SHPickIconDialog(hwndOwner, buf, MAX_PATH, out index);
-            if (ok)
+            bool Result = User32.SHPickIconDialog(OwnerWindow, PathBuffer, MAX_PATH, out i);
+            if (Result)
             {
-                FileName = Environment.ExpandEnvironmentVariables(buf.ToString());
-                IconIndex = index;
+                FileName = Environment.ExpandEnvironmentVariables(PathBuffer.ToString());
+                IconIndex = i;
             }
 
-            return ok;
+            return Result;
         }
 
         public override void Reset()
