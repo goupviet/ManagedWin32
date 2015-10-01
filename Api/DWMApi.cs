@@ -28,5 +28,21 @@ namespace ManagedWin32.Api
 
         [DllImport("dwmapi.dll")]
         public static extern int DwmGetWindowAttribute(IntPtr hWnd, DwmWindowAttribute dWAttribute, ref RECT pvAttribute, int cbAttribute);
+
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmGetColorizationColor(ref int color, [MarshalAs(UnmanagedType.Bool)] ref bool opaque);
+
+        public static bool IsTransparency
+        {
+            get
+            {
+                int color = 0;
+                bool opaque = true;
+
+                DwmGetColorizationColor(ref color, ref opaque);
+
+                return !opaque;
+            }
+        }
     }
 }
