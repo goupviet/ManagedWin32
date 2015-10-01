@@ -55,6 +55,7 @@
     <Compile Include="Constraints.cs" />
     <Compile Include="Desktop.cs" />
     <Compile Include="ExitWindows.cs" />
+    <Compile Include="FolderBrowserDialog.cs" />
     <Compile Include="IconPickerDialog.cs" />
     <Compile Include="InputBuilder.cs" />
     <Compile Include="KeyboardHook.cs" />
