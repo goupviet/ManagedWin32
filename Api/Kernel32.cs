@@ -8,6 +8,8 @@ namespace ManagedWin32.Api
     {
         public const int MAX_PATH = 260;
 
+        public static bool IsIntResource(IntPtr lpszName) { return (((uint)lpszName >> 16) == 0); }
+
         #region CurrentProcess
         [DllImport("kernel32.dll", ExactSpelling = true)]
         static extern IntPtr GetCurrentProcess();
@@ -15,6 +17,9 @@ namespace ManagedWin32.Api
         public static IntPtr CurrentProcess { get { return GetCurrentProcess(); } }
         #endregion
 
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
+        
         [DllImport("kernel32.dll")]
         public static extern bool CreateProcess(string lpApplicationName, string lpCommandLine, IntPtr lpProcessAttributes,
             IntPtr lpThreadAttributes, bool bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment,
@@ -28,7 +33,7 @@ namespace ManagedWin32.Api
 
         [DllImport("kernel32.dll")]
         public static extern Int32 CloseHandle(IntPtr hObject);
-        
+
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int QueryDosDevice(string lpDeviceName, StringBuilder lpTargetPath, int ucchMax);
 
@@ -94,7 +99,7 @@ namespace ManagedWin32.Api
 
         [DllImport("kernel32.dll", BestFitMapping = false, CharSet = CharSet.Auto, ExactSpelling = false, SetLastError = true)]
         internal static extern bool SetEnvironmentVariable(string lpName, string lpValue);
-        
+
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr BeginUpdateResource(string pFileName, bool bDeleteExistingResources);
 
@@ -106,7 +111,7 @@ namespace ManagedWin32.Api
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool UpdateResource(IntPtr hUpdate, ResourceType lpType, uint lpName, ushort wLanguage, byte[] lpData, uint cbData);
-        
+
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibrary(string dllToLoad);
 
@@ -120,13 +125,13 @@ namespace ManagedWin32.Api
         public static extern IntPtr LoadLibraryEx(string path, IntPtr hFile, LoadLibraryFlags flags);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr FindResource(IntPtr hModule, IntPtr resourceID, IntPtr type);
+        public static extern IntPtr FindResource(IntPtr hModule, IntPtr resourceID, ResourceType type);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr FindResource(IntPtr hModule, string resourceID, IntPtr type);
+        public static extern IntPtr FindResource(IntPtr hModule, string resourceID, ResourceType type);
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool EnumResourceNames(IntPtr hModule, IntPtr pType, EnumResNameProc callback, IntPtr param);
+        public static extern bool EnumResourceNames(IntPtr hModule, ResourceType pType, EnumResNameProc callback, IntPtr param);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool EnumResourceTypes(IntPtr hModule, EnumResTypeProc callback, IntPtr lParam);

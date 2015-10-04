@@ -69,6 +69,7 @@
     <Compile Include="CaptureScreen.cs" />
     <Compile Include="ScreenSaver.cs" />
     <Compile Include="SoundPlayer.cs" />
+    <Compile Include="StructSerializer.cs" />
     <Compile Include="SystemParams.cs" />
     <Compile Include="WindowHandler.cs" />
   </ItemGroup>

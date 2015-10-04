@@ -52,6 +52,15 @@ namespace ManagedWin32.Api
         public static extern IntPtr GetThreadDesktop(int dwThreadId);
         #endregion
 
+        [DllImport("user32.dll", SetLastError = true, ExactSpelling = true)]
+        public static extern int LookupIconIdFromDirectory(IntPtr presbits, bool fIcon);
+
+        [DllImport("user32.dll", SetLastError = true, ExactSpelling = true)]
+        public static extern int LookupIconIdFromDirectoryEx(IntPtr presbits, bool fIcon, int cxDesired, int cyDesired, LookupIconIdFromDirectoryExFlags Flags);
+
+        [DllImport("user32.dll", EntryPoint = "LoadImageW", SetLastError = true, ExactSpelling = true)]
+        public static extern IntPtr LoadImage(IntPtr hInstance, IntPtr lpszName, LoadImageTypes imageType, int cxDesired, int cyDesired, uint fuLoad);
+
         [DllImport("user32.dll")]
         public static extern IntPtr GetProcessWindowStation();
 

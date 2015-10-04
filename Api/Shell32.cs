@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System;
 
 namespace ManagedWin32.Api
 {
@@ -12,5 +13,8 @@ namespace ManagedWin32.Api
 
         [DllImport("shell32.dll")]
         public static extern uint SHAppBarMessage(uint dwMessage, ref APPBARDATA data);
+
+        [DllImport("shell32.dll")]
+        public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbSizeFileInfo, SHGetFileInfoFlags uFlags);
     }
 }

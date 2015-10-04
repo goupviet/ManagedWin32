@@ -50,12 +50,12 @@ namespace ManagedWin32
         #region Resources
         public LibraryResource FindResource(IntPtr ResourceID, ResourceType RType)
         {
-            return new LibraryResource(Kernel32.FindResource(Handle, ResourceID, (IntPtr)RType), Handle, RType, ResourceID.ToInt32());
+            return new LibraryResource(Kernel32.FindResource(Handle, ResourceID, RType), Handle, RType, ResourceID.ToInt32());
         }
 
         bool EnumResourceNames(ResourceType Type, EnumResNameProc Callback, IntPtr Parameter = default(IntPtr))
         {
-            return Kernel32.EnumResourceNames(Handle, (IntPtr)Type, Callback, Parameter);
+            return Kernel32.EnumResourceNames(Handle, Type, Callback, Parameter);
         }
 
         public IEnumerable<LibraryResource> EnumerateResources(ResourceType RType)
@@ -69,7 +69,7 @@ namespace ManagedWin32
                 return true;
             };
 
-            Kernel32.EnumResourceNames(Handle, (IntPtr)RType, Callback, IntPtr.Zero);
+            Kernel32.EnumResourceNames(Handle, RType, Callback, IntPtr.Zero);
 
             return FoundResources.ToArray();
         }

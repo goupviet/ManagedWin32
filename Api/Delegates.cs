@@ -17,5 +17,5 @@ namespace ManagedWin32.Api
     #endregion
 
     public delegate int EnumResTypeProc(IntPtr hModule, IntPtr lpszType, IntPtr lParam);
-    public delegate bool EnumResNameProc(IntPtr hModule, IntPtr pType, IntPtr pName, IntPtr param);
+    public delegate bool EnumResNameProc(IntPtr hModule, ResourceType lpszType, IntPtr lpszName, IntPtr lParam);
 }
