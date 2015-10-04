@@ -20,7 +20,21 @@ namespace ManagedWin32
         }
 
         #region Factory
-        Library(IntPtr Handle) { if (Handle == IntPtr.Zero) throw new Exception(); }
+        Library(IntPtr Handle)
+        {
+            if (Handle == IntPtr.Zero)
+                switch ((GetLastErrorResult)Marshal.GetLastWin32Error())
+                {
+                    case GetLastErrorResult.FileNotFound:
+                        throw new FileNotFoundException();
+                    case GetLastErrorResult.BadExeFormat:
+                        throw new ArgumentException("The file is not a valid win32 executable or dll.");
+                    default:
+                        throw new Exception("Failed to Load the Dll");
+                }
+
+            this.Handle = Handle;
+        }
 
         public Library(string Path) : this(Kernel32.LoadLibrary(Path)) { FileName = Path; }
 
@@ -50,15 +64,10 @@ namespace ManagedWin32
         #region Resources
         public LibraryResource FindResource(IntPtr ResourceID, ResourceType RType)
         {
-            return new LibraryResource(Kernel32.FindResource(Handle, ResourceID, RType), Handle, RType, ResourceID.ToInt32());
+            return new LibraryResource(Kernel32.FindResource(Handle, ResourceID, RType), Handle, RType, ResourceID);
         }
 
-        bool EnumResourceNames(ResourceType Type, EnumResNameProc Callback, IntPtr Parameter = default(IntPtr))
-        {
-            return Kernel32.EnumResourceNames(Handle, Type, Callback, Parameter);
-        }
-
-        public IEnumerable<LibraryResource> EnumerateResources(ResourceType RType)
+        public LibraryResource[] EnumerateResources(ResourceType RType)
         {
             List<LibraryResource> FoundResources = new List<LibraryResource>();
 
@@ -74,21 +83,7 @@ namespace ManagedWin32
             return FoundResources.ToArray();
         }
 
-        public bool HasResource(ResourceType RType)
-        {
-            int Count = 0;
-
-            EnumResNameProc Callback = (h, t, name, l) =>
-            {
-                ++Count;
-                return true;
-            };
-
-            EnumResourceNames(RType, Callback);
-
-            return Count != 0;
-
-        }
+        public bool HasResource(ResourceType RType) { return EnumerateResources(RType).Length != 0; }
         #endregion
 
         public string FileName { get; private set; }
@@ -100,11 +95,11 @@ namespace ManagedWin32
 
         IntPtr LibraryHandle;
 
-        public int ResourceId { get; private set; }
+        public IntPtr ResourceId { get; private set; }
 
         public ResourceType ResourceType { get; private set; }
 
-        public LibraryResource(IntPtr Handle, IntPtr LibraryHandle, ResourceType RType, int ResourceId = 0)
+        public LibraryResource(IntPtr Handle, IntPtr LibraryHandle, ResourceType RType, IntPtr ResourceId)
         {
             this.Handle = Handle;
             this.LibraryHandle = LibraryHandle;

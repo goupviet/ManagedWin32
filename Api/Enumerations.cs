@@ -2133,6 +2133,14 @@ namespace ManagedWin32.Api
     }
     #endregion
 
+    public enum GetLastErrorResult
+    {
+        Success = 0,
+        FileNotFound = 2,
+        BadExeFormat = 193,
+        ResourceTypeNotFound = 1813
+    }
+
     [Flags]
     public enum LookupIconIdFromDirectoryExFlags
     {
@@ -2140,7 +2148,7 @@ namespace ManagedWin32.Api
         Monochrome = 1
     }
 
-    public enum LoadImageTypes : int
+    public enum LoadImageTypes
     {
         Bitmap = 0,
         Icon = 1,
@@ -2148,7 +2156,7 @@ namespace ManagedWin32.Api
     }
 
     [Flags]
-    public enum SHGetFileInfoFlags : int
+    public enum SHGetFileInfoFlags
     {
         Icon = 0x000000100,     // get icon
         DisplayName = 0x000000200,     // get display name
@@ -2167,5 +2175,4 @@ namespace ManagedWin32.Api
         PIDL = 0x000000008,     // pszPath is a pidl
         UseFileAttributes = 0x000000010      // use passed dwFileAttribute
     }
-    
 }
