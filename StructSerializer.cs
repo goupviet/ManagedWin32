@@ -15,11 +15,11 @@ namespace ManagedWin32
         /// <typeparam name="T">The structure type to be read.</typeparam>
         /// <param name="inputStream">The input stream to read from.</param>
         /// <returns>A structure of type T that was read from the stream.</returns>
-        public static T Read<T>(this Stream inputStream) where T : struct
+        public static T Read<T>(this Stream instream) where T : struct
         {
             int size = Marshal.SizeOf(typeof(T));
             byte[] buffer = new byte[size];
-            inputStream.Read(buffer, 0, size);
+            instream.Read(buffer, 0, size);
             IntPtr ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(buffer, 0, ptr, size);
             object ret = Marshal.PtrToStructure(ptr, typeof(T));
@@ -33,7 +33,7 @@ namespace ManagedWin32
         /// <typeparam name="T">The structure type to be written.</typeparam>
         /// <param name="outputStream">The output stream to write to.</param>
         /// <param name="structure">The structure to be written.</param>
-        public static void Write<T>(this T structure, Stream outputStream) where T : struct
+        public static void Write<T>(this T structure, Stream stream) where T : struct
         {
             int size = Marshal.SizeOf(typeof(T));
             byte[] buffer = new byte[size];
@@ -41,7 +41,7 @@ namespace ManagedWin32
             Marshal.StructureToPtr(structure, ptr, true);
             Marshal.Copy(ptr, buffer, 0, size);
             Marshal.FreeHGlobal(ptr);
-            outputStream.Write(buffer, 0, size);
+            stream.Write(buffer, 0, size);
         }
     }
 }
