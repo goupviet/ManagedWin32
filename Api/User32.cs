@@ -76,7 +76,7 @@ namespace ManagedWin32.Api
         [DllImport("user32.dll")]
         public static extern void LockWorkStation();
 
-        [DllImport("shell32.dll", EntryPoint = "#62", SetLastError = true)]
+        [DllImport("shell32.dll", EntryPoint = "#62", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool SHPickIconDialog(IntPtr hWnd, StringBuilder pszFilename, int cchFilenameMax, out int pnIconIndex);
 
         #region HotKey
