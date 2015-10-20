@@ -1520,7 +1520,18 @@ namespace ManagedWin32.Api
         NoMove = 0x2,
         NoSize = 1,
         NoZOrder = 0x4,
-        ShowWindow = 0x400
+        ShowWindow = 0x400,
+        SWP_ASYNCWINDOWPOS = 0x4000,	// If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request.
+        SWP_DEFERERASE = 0x2000,	// Prevents generation of the WM_SYNCPAINT message.
+        SWP_DRAWFRAME = 0x0020,	 // Draws a frame (defined in the window's class description) around the window.
+        SWP_FRAMECHANGED = 0x0020, //Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE message to the window, even if the window's size is not being changed. If this flag is not specified, WM_NCCALCSIZE is sent only when the window's size is being changed.
+        SWP_HIDEWINDOW = 0x0080,	// Hides the window.
+        SWP_NOACTIVATE = 0x0010,	// Does not activate the window. If this flag is not set, the window is activated and moved to the top of either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter parameter).
+        SWP_NOCOPYBITS = 0x0100,	// Discards the entire contents of the client area. If this flag is not specified, the valid contents of the client area are saved and copied back into the client area after the window is sized or repositioned.
+        SWP_NOOWNERZORDER = 0x0200,	//Does not change the owner window's position in the Z order.
+        SWP_NOREDRAW = 0x0008,	//Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to the client area, the nonclient area (including the title bar and scroll bars), and any part of the parent window uncovered as a result of the window being moved. When this flag is set, the application must explicitly invalidate or redraw any parts of the window and parent window that need redrawing.
+        SWP_NOREPOSITION = 0x0200,	// Same as the SWP_NOOWNERZORDER flag.
+        SWP_NOSENDCHANGING = 0x0400	//Prevents the window from receiving the WM_WINDOWPOSCHANGING message.
     }
 
     public enum PatBltTypes
@@ -2098,6 +2109,20 @@ namespace ManagedWin32.Api
     }
 
     [Flags]
+    public enum ThreadAccess : int
+    {
+        TERMINATE = (0x0001),
+        SUSPEND_RESUME = (0x0002),
+        GET_CONTEXT = (0x0008),
+        SET_CONTEXT = (0x0010),
+        SET_INFORMATION = (0x0020),
+        QUERY_INFORMATION = (0x0040),
+        SET_THREAD_TOKEN = (0x0080),
+        IMPERSONATE = (0x0100),
+        DIRECT_IMPERSONATION = (0x0200)
+    }
+
+    [Flags]
     public enum ProcessAccess
     {
         Terminate = 0x0001,
@@ -2106,11 +2131,12 @@ namespace ManagedWin32.Api
         Operation = 0x0008,
         Read = 0x0010,
         Write = 0x0020,
-        DUP_Handle = 0x0040,
+        DupHandle = 0x0040,
         CreateProcess = 0x0080,
         SetQuota = 0x0100,
         SetInformation = 0x0200,
-        QueryInformation = 0x0400
+        QueryInformation = 0x0400,
+        Synchronize = 0x00100000
     }
 
     public enum ResourceType
@@ -2147,12 +2173,67 @@ namespace ManagedWin32.Api
     }
     #endregion
 
-    public enum GetLastErrorResult
+    public enum Win32Error : uint
     {
-        Success = 0,
-        FileNotFound = 2,
-        BadExeFormat = 193,
-        ResourceTypeNotFound = 1813
+        Success = 0x0,
+        InvalidFunction = 0x1,
+        FileNotFound = 0x2,
+        PathNotFound = 0x3,
+        TooManyOpenFiles = 0x4,
+        AccessDenied = 0x5,
+        InvalidHandle = 0x6,
+        ArenaTrashed = 0x7,
+        NotEnoughMemory = 0x8,
+        InvalidBlock = 0x9,
+        BadEnvironment = 0xa,
+        BadFormat = 0xb,
+        InvalidAccess = 0xc,
+        InvalidData = 0xd,
+        OutOfMemory = 0xe,
+        InvalidDrive = 0xf,
+        CurrentDirectory = 0x10,
+        NotSameDevice = 0x11,
+        NoMoreFiles = 0x12,
+        WriteProtect = 0x13,
+        BadUnit = 0x14,
+        NotReady = 0x15,
+        BadCommand = 0x16,
+        Crc = 0x17,
+        BadLength = 0x18,
+        Seek = 0x19,
+        NotDosDisk = 0x1a,
+        SectorNotFound = 0x1b,
+        OutOfPaper = 0x1c,
+        WriteFault = 0x1d,
+        ReadFault = 0x1e,
+        GenFailure = 0x1f,
+        SharingViolation = 0x20,
+        LockViolation = 0x21,
+        WrongDisk = 0x22,
+        SharingBufferExceeded = 0x24,
+        HandleEof = 0x26,
+        HandleDiskFull = 0x27,
+        NotSupported = 0x32,
+        RemNotList = 0x33,
+        DupName = 0x34,
+        BadNetPath = 0x35,
+        NetworkBusy = 0x36,
+        DevNotExist = 0x37,
+        TooManyCmds = 0x38,
+        FileExists = 0x50,
+        CannotMake = 0x52,
+        AlreadyAssigned = 0x55,
+        InvalidPassword = 0x56,
+        InvalidParameter = 0x57,
+        NetWriteFault = 0x58,
+        NoProcSlots = 0x59,
+        TooManySemaphores = 0x64,
+        ExclSemAlreadyOwned = 0x65,
+        SemIsSet = 0x66,
+        TooManySemRequests = 0x67,
+        InvalidAtInterruptTime = 0x68,
+        SemOwnerDied = 0x69,
+        SemUserLimit = 0x6a
     }
 
     [Flags]

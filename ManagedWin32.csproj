@@ -48,6 +48,7 @@
     <Compile Include="Api\Gdi32.cs" />
     <Compile Include="Api\Kernel32.cs" />
     <Compile Include="Api\PowrProf.cs" />
+    <Compile Include="Api\PSApi.cs" />
     <Compile Include="Api\Shell32.cs" />
     <Compile Include="Api\Structures.cs" />
     <Compile Include="Api\User32.cs" />

@@ -27,5 +27,8 @@ namespace ManagedWin32
     {        
         [DllImport("winmm.dll", CharSet = CharSet.Auto, ExactSpelling = false)]
         public static extern bool PlaySound(string soundName, IntPtr hmod, SoundFlags SoundFlags);
+
+        [DllImport("winmm.dll", SetLastError = true)]
+        public static extern bool PlaySound(byte[] ptrToSound, UIntPtr hmod, uint fdwSound);
     }
 }

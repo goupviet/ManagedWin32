@@ -4,6 +4,281 @@ using System.Text;
 
 namespace ManagedWin32.Api
 {
+    public enum EventObjects : int
+    {
+        OBJID_ALERT = -10,
+        OBJID_CARET = -8,
+        OBJID_CLIENT = -4,
+        OBJID_CURSOR = -9,
+        OBJID_HSCROLL = -6,
+        OBJID_MENU = -3,
+        OBJID_SIZEGRIP = -7,
+        OBJID_SOUND = -11,
+        OBJID_SYSMENU = -1,
+        OBJID_TITLEBAR = -2,
+        OBJID_VSCROLL = -5,
+        OBJID_WINDOW = 0
+    }
+
+    public delegate void WinEventDelegate(IntPtr hWinEventHook, WinEvent eventType, IntPtr hwnd, EventObjects idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
+
+    public enum WinEventHookFlags : int
+    {
+        WINEVENT_SKIPOWNTHREAD = 1,
+        WINEVENT_SKIPOWNPROCESS = 2,
+        WINEVENT_OUTOFCONTEXT = 0,
+        WINEVENT_INCONTEXT = 4
+    }
+
+    public enum WinEvent : uint
+    {
+        EVENT_OBJECT_ACCELERATORCHANGE = 32786,
+        EVENT_OBJECT_CREATE = 32768,
+        EVENT_OBJECT_DESTROY = 32769,
+        EVENT_OBJECT_DEFACTIONCHANGE = 32785,
+        EVENT_OBJECT_DESCRIPTIONCHANGE = 32781,
+        EVENT_OBJECT_FOCUS = 32773,
+        EVENT_OBJECT_HELPCHANGE = 32784,
+        EVENT_OBJECT_SHOW = 32770,
+        EVENT_OBJECT_HIDE = 32771,
+        EVENT_OBJECT_LOCATIONCHANGE = 32779,
+        EVENT_OBJECT_NAMECHANGE = 32780,
+        EVENT_OBJECT_PARENTCHANGE = 32783,
+        EVENT_OBJECT_REORDER = 32772,
+        EVENT_OBJECT_SELECTION = 32774,
+        EVENT_OBJECT_SELECTIONADD = 32775,
+        EVENT_OBJECT_SELECTIONREMOVE = 32776,
+        EVENT_OBJECT_SELECTIONWITHIN = 32777,
+        EVENT_OBJECT_STATECHANGE = 32778,
+        EVENT_OBJECT_VALUECHANGE = 32782,
+        EVENT_SYSTEM_ALERT = 2,
+        EVENT_SYSTEM_CAPTUREEND = 9,
+        EVENT_SYSTEM_CAPTURESTART = 8,
+        EVENT_SYSTEM_CONTEXTHELPEND = 13,
+        EVENT_SYSTEM_CONTEXTHELPSTART = 12,
+        EVENT_SYSTEM_DIALOGEND = 17,
+        EVENT_SYSTEM_DIALOGSTART = 16,
+        EVENT_SYSTEM_DRAGDROPEND = 15,
+        EVENT_SYSTEM_DRAGDROPSTART = 14,
+        EVENT_SYSTEM_FOREGROUND = 3,
+        EVENT_SYSTEM_MENUEND = 5,
+        EVENT_SYSTEM_MENUPOPUPEND = 7,
+        EVENT_SYSTEM_MENUPOPUPSTART = 6,
+        EVENT_SYSTEM_MENUSTART = 4,
+        EVENT_SYSTEM_MINIMIZEEND = 23,
+        EVENT_SYSTEM_MINIMIZESTART = 22,
+        EVENT_SYSTEM_MOVESIZEEND = 11,
+        EVENT_SYSTEM_MOVESIZESTART = 10,
+        EVENT_SYSTEM_SCROLLINGEND = 19,
+        EVENT_SYSTEM_SCROLLINGSTART = 18,
+        EVENT_SYSTEM_SOUND = 1,
+        EVENT_SYSTEM_SWITCHEND = 21,
+        EVENT_SYSTEM_SWITCHSTART = 20
+    }
+
+    public enum Orientation
+    {
+        Horizontal = 0,
+        Vertical = 1
+    }
+
+    public enum ScrollBarDirection : int
+    {
+        SB_HORZ = 0,
+        SB_VERT = 1,
+        SB_CTL = 2,
+        SB_BOTH = 3
+    }
+
+    public enum RegionResult
+    {
+        REGION_ERROR = 0,
+        REGION_NULLREGION = 1,
+        REGION_SIMPLEREGION = 2,
+        REGION_COMPLEXREGION = 3
+    }
+
+    [Flags]
+    public enum SendMessageTimeoutFlags : uint
+    {
+        SMTO_NORMAL = 0x0,
+        SMTO_BLOCK = 0x1,
+        SMTO_ABORTIFHUNG = 0x2,
+        SMTO_NOTIMEOUTIFNOTHUNG = 0x8
+    }
+
+    [Serializable, StructLayout(LayoutKind.Sequential)]
+    public struct SCROLLINFO
+    {
+        public int cbSize;
+        public int fMask;
+        public int nMin;
+        public int nMax;
+        public int nPage;
+        public int nPos;
+        public int nTrackPos;
+    }
+
+    [StructLayout(LayoutKind.Sequential), Serializable()]
+    public struct WindowInfo
+    {
+        public uint cbSize;
+        public RECT rcWindow;
+        public RECT rcClient;
+        public uint dwStyle;
+        public uint dwExStyle;
+        public uint dwWindowStatus;
+        public uint cxWindowBorders;
+        public uint cyWindowBorders;
+        public ushort atomWindowType;
+        public ushort wCreatorVersion;
+
+        // Allows automatic initialization of "cbSize" with "new WINDOWINFO(null/true/false)".
+        public WindowInfo(Boolean? filler)
+            : this()
+        {
+            cbSize = (UInt32)(Marshal.SizeOf(typeof(WindowInfo)));
+        }
+    }
+
+    [Flags]
+    public enum WindowPlacementFlags : uint
+    {
+        // The coordinates of the minimized window may be specified.
+        // This flag must be specified if the coordinates are set in the ptMinPosition member.
+        WPF_SETMINPOSITION = 0x0001,
+        // If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request.
+        WPF_ASYNCWINDOWPLACEMENT = 0x0004,
+        // The restored window will be maximized, regardless of whether it was maximized before it was minimized. This setting is only valid the next time the window is restored. It does not change the default restoration behavior.
+        // This flag is only valid when the SW_SHOWMINIMIZED value is specified for the showCmd member.
+        WPF_RESTORETOMAXIMIZED = 0x0002
+    }
+
+    public enum ShowWindowCommand : uint
+    {
+        /// <summary>
+        /// Hides the window and activates another window.
+        /// </summary>
+        Hide = 0,
+        /// <summary>
+        /// Activates and displays a window. If the window is minimized or
+        /// maximized, the system restores it to its original size and position.
+        /// An application should specify this flag when displaying the window
+        /// for the first time.
+        /// </summary>
+        Normal = 1,
+        /// <summary>
+        /// Activates the window and displays it as a minimized window.
+        /// </summary>
+        ShowMinimized = 2,
+        /// <summary>
+        /// Maximizes the specified window.
+        /// </summary>
+        Maximize = 3, // is this the right value?
+        /// <summary>
+        /// Activates the window and displays it as a maximized window.
+        /// </summary>
+        ShowMaximized = 3,
+        /// <summary>
+        /// Displays a window in its most recent size and position. This value
+        /// is similar to <see cref="Win32.ShowWindowCommand.Normal"/>, except
+        /// the window is not actived.
+        /// </summary>
+        ShowNoActivate = 4,
+        /// <summary>
+        /// Activates the window and displays it in its current size and position.
+        /// </summary>
+        Show = 5,
+        /// <summary>
+        /// Minimizes the specified window and activates the next top-level
+        /// window in the Z order.
+        /// </summary>
+        Minimize = 6,
+        /// <summary>
+        /// Displays the window as a minimized window. This value is similar to
+        /// <see cref="Win32.ShowWindowCommand.ShowMinimized"/>, except the
+        /// window is not activated.
+        /// </summary>
+        ShowMinNoActive = 7,
+        /// <summary>
+        /// Displays the window in its current size and position. This value is
+        /// similar to <see cref="Win32.ShowWindowCommand.Show"/>, except the
+        /// window is not activated.
+        /// </summary>
+        ShowNA = 8,
+        /// <summary>
+        /// Activates and displays the window. If the window is minimized or
+        /// maximized, the system restores it to its original size and position.
+        /// An application should specify this flag when restoring a minimized window.
+        /// </summary>
+        Restore = 9,
+        /// <summary>
+        /// Sets the show state based on the SW_* value specified in the
+        /// STARTUPINFO structure passed to the CreateProcess function by the
+        /// program that started the application.
+        /// </summary>
+        ShowDefault = 10,
+        /// <summary>
+        ///  <b>Windows 2000/XP:</b> Minimizes a window, even if the thread
+        /// that owns the window is not responding. This flag should only be
+        /// used when minimizing windows from a different thread.
+        /// </summary>
+        ForceMinimize = 11
+    }
+
+    /// <summary>
+    /// Contains information about the placement of a window on the screen.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential), Serializable()]
+    public struct WindowPlacement
+    {
+        /// <summary>
+        /// The length of the structure, in bytes. Before calling the GetWindowPlacement or SetWindowPlacement functions, set this member to sizeof(WINDOWPLACEMENT).
+        /// <para>
+        /// GetWindowPlacement and SetWindowPlacement fail if this member is not set correctly.
+        /// </para>
+        /// </summary>
+        public int Length;
+
+        /// <summary>
+        /// Specifies flags that control the position of the minimized window and the method by which the window is restored.
+        /// </summary>
+        public WindowPlacementFlags Flags;
+
+        /// <summary>
+        /// The current show state of the window.
+        /// </summary>
+        public ShowWindowCommand ShowCmd;
+
+        /// <summary>
+        /// The coordinates of the window's upper-left corner when the window is minimized.
+        /// </summary>
+        public POINT MinPosition;
+
+        /// <summary>
+        /// The coordinates of the window's upper-left corner when the window is maximized.
+        /// </summary>
+        public POINT MaxPosition;
+
+        /// <summary>
+        /// The window's coordinates when the window is in the restored position.
+        /// </summary>
+        public RECT NormalPosition;
+
+        /// <summary>
+        /// Gets the default (empty) value.
+        /// </summary>
+        public static WindowPlacement Default
+        {
+            get
+            {
+                WindowPlacement result = new WindowPlacement();
+                result.Length = Marshal.SizeOf(result);
+                return result;
+            }
+        }
+    }
+
     public static class User32
     {
         public const int SPIF_SENDWININICHANGE = 2;
@@ -395,5 +670,136 @@ namespace ManagedWin32.Api
         [DllImport("user32.dll")]
         public static extern bool BringWindowToTop(IntPtr hWnd);
 
+        [DllImport("user32", SetLastError = true)]
+        public static extern int SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern int ShowWindow(IntPtr hWnd, ShowWindowCommand nCmdShow);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern uint GetSysColor(int nIndex);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowPlacement(IntPtr hWnd, ref WindowPlacement lpwndpl);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WindowPlacement lpwndpl);
+
+        [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
+        public extern static int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr GetClassLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr GetClassLongPtr(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
+
+        [DllImport("user32", SetLastError = true)]
+        public extern static int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32", SetLastError = true, EntryPoint = "SendMessageA")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        public extern static uint GetWindowLong(IntPtr hwnd, int index);
+
+        [DllImport("user32", SetLastError = true)]
+        public extern static uint GetWindowLongPtr(IntPtr hwnd, int nIndex);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern int SetWindowLong(IntPtr hWnd, int index, int styleFlags);
+
+        [DllImport("user32", SetLastError = true, EntryPoint = "SetWindowLongPtr")]
+        public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int index, IntPtr styleFlags);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, uint dwFlags);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowInfo(IntPtr hwnd, ref WindowInfo pwi);
+
+        [DllImport("user32", SetLastError = true)]
+        public extern static int EnumWindows(EnumWindowsProc lpEnumFunc, int lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        public extern static int EnumChildWindows(IntPtr hWndParent, EnumWindowsProc lpEnumFunc, int lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetScrollInfo(IntPtr hwnd, int fnBar, ref SCROLLINFO lpsi);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ShowScrollBar(IntPtr hwnd, ScrollBarDirection scrollBar, bool show);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern int SetScrollPos(IntPtr hWnd, Orientation nBar, int nPos, bool bRedraw);
+
+        [DllImport("user32", SetLastError = true, EntryPoint = "PostMessageA")]
+        public static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern RegionResult GetWindowRgn(IntPtr hWnd, SafeHandle hRgn);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr GetTopWindow(IntPtr hWnd);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern void ReleaseDC(IntPtr dc);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr GetClipboardOwner();
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+
+        // Added for WinEventHook logic, Greenshot 1.2
+        [DllImport("user32", SetLastError = true)]
+        public static extern bool UnhookWinEvent(IntPtr hWinEventHook);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr SetWinEventHook(WinEvent eventMin, WinEvent eventMax, IntPtr hmodWinEventProc, WinEventDelegate lpfnWinEventProc, int idProcess, int idThread, WinEventHookFlags dwFlags);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
+        /// uiFlags: 0 - Count of GDI objects
+        /// uiFlags: 1 - Count of USER objects
+        /// - Win32 GDI objects (pens, brushes, fonts, palettes, regions, device contexts, bitmap headers)
+        /// - Win32 USER objects:
+        ///	- 	WIN32 resources (accelerator tables, bitmap resources, dialog box templates, font resources, menu resources, raw data resources, string table entries, message table entries, cursors/icons)
+        /// - Other USER objects (windows, menus)
+        ///
+        [DllImport("user32", SetLastError = true)]
+        public static extern uint GetGuiResources(IntPtr hProcess, uint uiFlags);
+
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessageTimeout(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam, SendMessageTimeoutFlags fuFlags, uint uTimeout, out UIntPtr lpdwResult);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern int MapWindowPoints(IntPtr hwndFrom, IntPtr hwndTo, ref POINT lpPoints, [MarshalAs(UnmanagedType.U4)] int cPoints);
+        
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr SetCapture(IntPtr hWnd);
+
+        [DllImport("user32", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
     }
 }

@@ -23,11 +23,11 @@ namespace ManagedWin32
         Library(IntPtr Handle)
         {
             if (Handle == IntPtr.Zero)
-                switch ((GetLastErrorResult)Marshal.GetLastWin32Error())
+                switch ((Win32Error)Marshal.GetLastWin32Error())
                 {
-                    case GetLastErrorResult.FileNotFound:
+                    case Win32Error.FileNotFound:
                         throw new FileNotFoundException();
-                    case GetLastErrorResult.BadExeFormat:
+                    case Win32Error.BadFormat:
                         throw new ArgumentException("The file is not a valid win32 executable or dll.");
                     default:
                         throw new Exception("Failed to Load the Dll");
