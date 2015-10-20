@@ -381,10 +381,19 @@ namespace ManagedWin32.Api
         #endregion
 
         [DllImport("user32.dll")]
-        public static extern WindowStyles GetWindowLong(this IntPtr hWnd, GetWindowLongValue nIndex);
+        public static extern WindowStyles GetWindowLong(IntPtr hWnd, GetWindowLongValue nIndex);
 
-        [DllImport("psapi.dll")]
-        public static extern uint GetModuleFileNameEx(this IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName,
-                                                      [In] [MarshalAs(UnmanagedType.U4)] int nSize);
+        [DllImport("user32.dll")]
+        public static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw, int diFlags);
+
+        [DllImport("user32.dll")]
+        public static extern bool DestroyIcon(IntPtr hIcon);
+
+        [DllImport("user32")]
+        public static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
+
+        [DllImport("user32.dll")]
+        public static extern bool BringWindowToTop(IntPtr hWnd);
+
     }
 }
