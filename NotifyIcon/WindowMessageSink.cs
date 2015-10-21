@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedWin32.Api
 {
@@ -57,7 +56,6 @@ namespace ManagedWin32.Api
         #endregion
 
         #region events
-
         /// <summary>
         /// The custom tooltip should be closed or hidden.
         /// </summary>
@@ -80,7 +78,6 @@ namespace ManagedWin32.Api
         /// icon to be reset.
         /// </summary>
         public event Action TaskbarCreated;
-
         #endregion
 
         #region construction

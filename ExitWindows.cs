@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using ManagedWin32.Api;
 
 namespace ManagedWin32
 {
     public static class ExitWindows
     {
-        public static void Exit(ShutdownFlags Flags, int Reason = 0)
+        public static void Exit(ShutdownFlags Flags = ShutdownFlags.Shutdown, int Reason = 0)
         {
             TokPriv1Luid tp = new TokPriv1Luid(1, 0, AdvApi32.SE_PRIVILEGE_ENABLED);
             IntPtr hproc = Kernel32.CurrentProcess, htok = IntPtr.Zero;

@@ -2,7 +2,6 @@ using System;
 using System.Windows;
 using System.Windows.Interop;
 using ManagedWin32.Api;
-using System.Runtime.InteropServices;
 
 namespace ManagedWin32
 {
@@ -37,7 +36,9 @@ namespace ManagedWin32
 
         void ProcessMessage(ref MSG msg, ref bool handled)
         {
-            if ((msg.message == (int)WindowsMessage.HOTKEY) && (msg.wParam.ToInt32() == Identifier) && (Triggered != null))
+            if ((msg.message == (int)WindowsMessage.HOTKEY) 
+                && (msg.wParam.ToInt32() == Identifier) 
+                && (Triggered != null))
                 Triggered();
         }
 
