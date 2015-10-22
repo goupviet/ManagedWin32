@@ -14,12 +14,12 @@ namespace ManagedWin32
 
         public Window Window { get; private set; }
 
-        public VirtualKeyCodes Key { get; private set; }
+        public KeyCode Key { get; private set; }
 
         public ModifierKeyCodes Modifiers { get; private set; }
         #endregion
         
-        public KeyboardHook(Window Window, VirtualKeyCodes Key, ModifierKeyCodes Modifiers)
+        public KeyboardHook(Window Window, KeyCode Key, ModifierKeyCodes Modifiers)
         {
             this.Key = Key;
             this.Modifiers = Modifiers;
