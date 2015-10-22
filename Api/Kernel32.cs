@@ -184,6 +184,6 @@ namespace ManagedWin32.Api
         public static extern uint QueryDosDevice(string lpDeviceName, StringBuilder lpTargetPath, uint uuchMax);
 
         [DllImport("kernel32", SetLastError = true)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
+        public static extern IntPtr GetModuleHandle(string lpModuleName);        
     }
 }

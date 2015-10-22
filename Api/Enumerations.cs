@@ -1970,47 +1970,7 @@ namespace ManagedWin32.Api
         APP = 32768
     }
     #endregion
-
-    #region DWMApi
-    [Flags]
-    public enum DWMThumbnailFlags : uint
-    {
-        RectDestination = 1,
-        RectSource = 2,
-        Opacity = 4,
-        Visible = 8,
-        SourceClientAreaOnly = 0x10
-    }
-
-    [Flags]
-    public enum DWMBlurbehindFlags : uint
-    {
-        /// <summary>Flag Transparency Enabled</summary>
-        Enable = 1,
-        /// <summary>Flag Region</summary>
-        BlurRegion = 2,
-        /// <summary>Flag Transition on maximized</summary>
-        TransitionOnMaximized = 4
-    }
-
-    public enum DwmWindowAttribute
-    {
-        NonClientRenderingEnabled = 1,
-        NonClientRenderingPolicy,
-        TransitionsForceDisabled,
-        AllowNonClientPaint,
-        CaptionButtonBounds,
-        NonClientRtlLayout,
-        ForceIconicRepresentation,
-        Flip3DPolicy,
-        ExtendedFrameBounds,
-        HasIconicBitmap,
-        DisallowPeek,
-        ExcludedFromPeek,
-        Last
-    }
-    #endregion
-
+    
     #region Shell32
     /// <summary>
     /// Main operations performed on the

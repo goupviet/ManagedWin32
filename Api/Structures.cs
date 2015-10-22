@@ -3,32 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 namespace ManagedWin32.Api
-{
-    #region DWMApi
-    [StructLayout(LayoutKind.Sequential)]
-    public struct DWMThumbnailProperties
-    {
-        public DWMThumbnailFlags Flags;
-        public RECT Destination;
-        public RECT Source;
-        public byte Opacity;
-        public bool Visible;
-        public bool SourceClientAreaOnly;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct DWMBlurbehind
-    {
-        /// <summary>Flags that indicates the given parameters</summary>
-        public DWMBlurbehindFlags dwFlags;
-        /// <summary>True if the transparency is enabled</summary>
-        public bool fEnable;
-        /// <summary>Region</summary>
-        public IntPtr hRgnBlur;
-        public bool fTransitionOnMaximized;
-    }
-    #endregion
-
+{    
     #region AdvApi
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct TokPriv1Luid
