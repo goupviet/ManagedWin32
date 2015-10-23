@@ -127,18 +127,12 @@ namespace ManagedWin32.Api
         {
             get
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\DWM", false))
-                {
-                    if (key != null)
-                    {
-                        object dwordValue = key.GetValue("ColorizationColor");
-                        if (dwordValue != null)
-                        {
-                            return Color.FromArgb((Int32)dwordValue);
-                        }
-                    }
-                }
-                return Color.White;
+                int color = 0;
+                bool opaque = true;
+
+                DwmGetColorizationColor(ref color, ref opaque);
+
+                return Color.FromArgb(color);
             }
         }
     }

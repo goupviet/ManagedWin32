@@ -36,6 +36,6 @@ namespace ManagedWin32.Api
         #endregion
 
         [DllImport("secur32.dll", CharSet = CharSet.Unicode, ExactSpelling = false, SetLastError = true)]
-        internal static extern byte GetUserNameEx(int format, [Out] StringBuilder domainName, ref uint domainNameLen);
+        public static extern byte GetUserNameEx(int format, [Out] StringBuilder domainName, ref uint domainNameLen);
     }
 }
