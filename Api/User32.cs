@@ -31,7 +31,7 @@ namespace ManagedWin32.Api
         public const int WHEEL_DELTA = 120;
 
         public const int CURSOR_SHOWING = 0x00000001;
-
+        
         #region System Parameters Info
         [DllImport("user32.dll")]
         public static extern bool SystemParametersInfo(SystemInfoParamsAction uAction, int uParam, ref int lpvParam, int flags);

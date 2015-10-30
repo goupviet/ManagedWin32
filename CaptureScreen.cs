@@ -17,7 +17,7 @@ namespace ManagedWin32
             {
                 IntPtr hOld = Gdi32.SelectObject(hMemDC, hBitmap);
 
-                Gdi32.BitBlt(hMemDC, 0, 0, SystemParams.ScreenWidth, SystemParams.ScreenHeight, hDC, 0, 0, PatBltTypes.SRCCOPY);
+                Gdi32.BitBlt(hMemDC, 0, 0, SystemParams.ScreenWidth, SystemParams.ScreenHeight, hDC, 0, 0, CopyPixelOperation.SourceCopy);
 
                 Gdi32.SelectObject(hMemDC, hOld);
                 return Bitmap.FromHbitmap(hBitmap);
@@ -101,7 +101,7 @@ namespace ManagedWin32
                     IntPtr hOld = Gdi32.SelectObject(MemoryDC, hBmp);
 
                     // bitblt over
-                    Gdi32.BitBlt(MemoryDC, 0, 0, Width, Height, SourceDC, 0, 0, PatBltTypes.SRCCOPY);
+                    Gdi32.BitBlt(MemoryDC, 0, 0, Width, Height, SourceDC, 0, 0, CopyPixelOperation.SourceCopy);
 
                     // restore selection
                     Gdi32.SelectObject(MemoryDC, hOld);

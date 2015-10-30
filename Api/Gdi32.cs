@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace ManagedWin32.Api
 {
@@ -185,13 +186,13 @@ namespace ManagedWin32.Api
            int yMask, uint dwRop);
 
         [DllImport("gdi32", SetLastError = true)]
-        public static extern bool StretchBlt(SafeHandle hdcDest, int nXOriginDest, int nYOriginDest, int nWidthDest, int nHeightDest, SafeHandle hdcSrc, int nXOriginSrc, int nYOriginSrc, int nWidthSrc, int nHeightSrc, PatBltTypes dwRop);
+        public static extern bool StretchBlt(SafeHandle hdcDest, int nXOriginDest, int nYOriginDest, int nWidthDest, int nHeightDest, SafeHandle hdcSrc, int nXOriginSrc, int nYOriginSrc, int nWidthSrc, int nHeightSrc, CopyPixelOperation dwRop);
 
         [DllImport("gdi32.dll")]
         public static extern int SetBkColor(IntPtr hDC, uint crColor);
 
         [DllImport("gdi32.dll", CharSet = CharSet.Auto)]
-        public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, PatBltTypes dwRop);
+        public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, CopyPixelOperation dwRop);
 
         [DllImport("gdi32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr CreateDIBSection(IntPtr hdc, [In] ref BitmapInfo pbmi, uint iUsage, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
@@ -210,5 +211,11 @@ namespace ManagedWin32.Api
 
         [DllImport("gdi32", SetLastError = true)]
         public static extern int GetDeviceCaps(SafeHandle hdc, DeviceCaps nIndex);
+
+        [DllImport("gdi32.dll")]
+        public static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, int lpInitData);
+
+        [DllImport("gdi32.dll")]
+        public static extern int SaveDC(IntPtr hdc);
     }
 }
