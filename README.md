@@ -5,4 +5,4 @@ This Library is not fully complete, you could help me do the same by creating a 
 
 ##Acknowledgements
 * FolderBrowserDialog is from WPFContrib
-* Desktop.cs, MemoryScanner and much more is from CodeProject
+* Desktop.cs, MemoryScanner, NotifyIcon and much more is from CodeProject
