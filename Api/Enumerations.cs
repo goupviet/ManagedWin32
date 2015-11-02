@@ -81,8 +81,8 @@ namespace ManagedWin32.Api
         // This flag is only valid when the SW_SHOWMINIMIZED value is specified for the showCmd member.
         WPF_RESTORETOMAXIMIZED = 0x0002
     }
-
-    public enum ShowWindowCommand : uint
+    
+    public enum ShowWindowFlags : uint
     {
         /// <summary>
         /// Hides the window and activates another window.
@@ -487,18 +487,7 @@ namespace ManagedWin32.Api
 
         GETWHEELSCROLLLINES = 104
     }
-
-    public enum WindowStates
-    {
-        Hidden = 0,
-        Normal = 1,
-        Minimized = 2,
-        Maximized = 3,
-        Inactive = 4,
-        Restore = 9,
-        Default = 10
-    }
-
+    
     /// <summary>Specifies the boot mode in which the system was started.</summary>
     public enum BootMode
     {

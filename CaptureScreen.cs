@@ -84,7 +84,7 @@ namespace ManagedWin32
             IntPtr SourceDC = User32.GetWindowDC(Window),
                 MemoryDC = Gdi32.CreateCompatibleDC(SourceDC);
 
-            var rect = new RECT();
+            var rect = new Rectangle();
             User32.GetWindowRect(Window, ref rect);
 
             int Width = rect.Right - rect.Left,

@@ -50,8 +50,8 @@ namespace ManagedWin32.Api
     public struct DWMThumbnailProperties
     {
         public DWMThumbnailFlags Flags;
-        public RECT Destination;
-        public RECT Source;
+        public Rectangle Destination;
+        public Rectangle Source;
         public byte Opacity;
         public bool Visible;
         public bool SourceClientAreaOnly;
@@ -79,7 +79,7 @@ namespace ManagedWin32.Api
         public static extern int DwmQueryThumbnailSourceSize(IntPtr HThumbnail, out Size size);
 
         [DllImport("dwmapi.dll")]
-        public static extern void DwmExtendFrameIntoClientArea(IntPtr hwnd, ref RECT margins);
+        public static extern void DwmExtendFrameIntoClientArea(IntPtr hwnd, ref Rectangle margins);
 
         [DllImport("dwmapi.dll")]
         public static extern int DwmRegisterThumbnail(IntPtr dest, IntPtr source, out IntPtr HThumbnail);
@@ -91,7 +91,7 @@ namespace ManagedWin32.Api
         public static extern void DwmEnableBlurBehindWindow(IntPtr hwnd, ref DWMBlurbehind blurBehind);
         
         [DllImport("dwmapi.dll")]
-        public static extern int DwmGetWindowAttribute(IntPtr hWnd, DwmWindowAttribute dWAttribute, ref RECT pvAttribute, int cbAttribute);
+        public static extern int DwmGetWindowAttribute(IntPtr hWnd, DwmWindowAttribute dWAttribute, ref Rectangle pvAttribute, int cbAttribute);
 
         [DllImport("dwmapi.dll")]
         public static extern int DwmGetColorizationColor(ref int color, [MarshalAs(UnmanagedType.Bool)] ref bool opaque);

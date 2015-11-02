@@ -560,7 +560,7 @@ namespace ManagedWin32
         /// 
         /// These left- and right-distinguishing constants are available to an application only through the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
         /// </remarks>
-        public static bool IsKeyDown(KeyCode keyCode) { return User32.GetKeyState((ushort)keyCode) < 0; }
+        public static bool IsKeyDown(KeyCode keyCode) { return User32.GetKeyState(keyCode) < 0; }
 
         /// <summary>
         /// Determines whether the specified key is up or downby calling the <see cref="User32.GetKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
@@ -612,7 +612,7 @@ namespace ManagedWin32
         /// 
         /// These left- and right-distinguishing constants are only available when you call the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
         /// </remarks>
-        public static bool IsHardwareKeyDown(KeyCode keyCode) { return User32.GetAsyncKeyState((ushort)keyCode) < 0; }
+        public static bool IsHardwareKeyDown(KeyCode keyCode) { return User32.GetAsyncKeyState(keyCode) < 0; }
 
         /// <summary>
         /// Determines whether the physical key is up or down at the time the function is called regardless of whether the application thread has read the keyboard event from the message pump by calling the <see cref="User32.GetAsyncKeyState"/> function. (See: http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
@@ -664,7 +664,7 @@ namespace ManagedWin32
         /// 
         /// These left- and right-distinguishing constants are available to an application only through the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
         /// </remarks>
-        public static bool IsTogglingKeyInEffect(KeyCode keyCode) { return (User32.GetKeyState((ushort)keyCode) & 0x01) == 0x01; }
+        public static bool IsTogglingKeyInEffect(KeyCode keyCode) { return (User32.GetKeyState(keyCode) & 0x01) == 0x01; }
         #endregion
     }
 }

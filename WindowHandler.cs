@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using ManagedWin32.Api;
-using Point = ManagedWin32.Api.POINT;
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace ManagedWin32
 {
-    public struct Size { public int Width, Height; }
-
     public class WindowHandler
     {
         #region Constructors
@@ -70,7 +70,7 @@ namespace ManagedWin32
             set
             {
                 //show the window
-                if (value == true) User32.ShowWindowAsync(Handle, WindowStates.Normal);
+                if (value == true) User32.ShowWindowAsync(Handle, ShowWindowFlags.Normal);
 
                 //hide the window
                 else Hide();
@@ -154,7 +154,7 @@ namespace ManagedWin32
                 }
                 else User32.SetForegroundWindow(value.Handle);
 
-                User32.ShowWindowAsync(value.Handle, value.IsMinimized ? WindowStates.Restore : WindowStates.Normal);
+                User32.ShowWindowAsync(value.Handle, value.IsMinimized ? ShowWindowFlags.Restore : ShowWindowFlags.Normal);
             }
         }
 
@@ -203,7 +203,7 @@ namespace ManagedWin32
         {
             get
             {
-                var rect = new RECT();
+                var rect = new Rectangle();
                 User32.GetWindowRect(Handle, ref rect);
 
                 return new Size()
@@ -212,17 +212,17 @@ namespace ManagedWin32
                     Height = rect.Bottom - rect.Top
                 };
             }
-            set { User32.SetWindowPos(Handle, IntPtr.Zero, 0, 0, value.Width, value.Height, SetWindowPositionFlags.NoMove | SetWindowPositionFlags.NoZOrder); }
+            set { User32.SetWindowPos(Handle, IntPtr.Zero, 0, 0, value.Width, value.Height, SetWindowPositionFlags.NoMove | SetWindowPositionFlags.NoZOrder | SetWindowPositionFlags.ShowWindow); }
         }
         
         #region Window States
-        public void Minimize() { User32.ShowWindowAsync(Handle, WindowStates.Minimized); }
+        public void Minimize() { User32.ShowWindowAsync(Handle, ShowWindowFlags.Minimize); }
 
-        public void Restore() { User32.ShowWindowAsync(Handle, WindowStates.Restore); }
+        public void Restore() { User32.ShowWindowAsync(Handle, ShowWindowFlags.Restore); }
 
-        public void Maximize() { User32.ShowWindowAsync(Handle, WindowStates.Maximized); }
+        public void Maximize() { User32.ShowWindowAsync(Handle, ShowWindowFlags.Maximize); }
 
-        public void Hide() { User32.ShowWindowAsync(Handle, WindowStates.Hidden); }
+        public void Hide() { User32.ShowWindowAsync(Handle, ShowWindowFlags.Hide); }
 
         public void Close() { User32.SendMessage(Handle, WindowsMessage.Close, 0, 0); }
         #endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Drawing;
 
 namespace ManagedWin32.Api
 {
@@ -168,36 +169,7 @@ namespace ManagedWin32.Api
         /// These left- and right-distinguishing constants are only available when you call the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
         /// </remarks>
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern short GetAsyncKeyState(ushort virtualKeyCode);
-
-        /// <summary>
-        /// The GetKeyState function retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off alternating each time the key is pressed). (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
-        /// </summary>
-        /// <param name="virtualKeyCode">
-        /// Specifies a virtual key. If the desired virtual key is a letter or digit (A through Z, a through z, or 0 through 9), nVirtKey must be set to the ASCII value of that character. For other keys, it must be a virtual-key code. 
-        /// If a non-English keyboard layout is used, virtual keys with values in the range ASCII A through Z and 0 through 9 are used to specify most of the character keys. For example, for the German keyboard layout, the virtual key of value ASCII O (0x4F) refers to the "o" key, whereas VK_OEM_1 refers to the "o with umlaut" key.
-        /// </param>
-        /// <returns>
-        /// The return value specifies the status of the specified virtual key, as follows: 
-        /// If the high-order bit is 1, the key is down; otherwise, it is up.
-        /// If the low-order bit is 1, the key is toggled. A key, such as the CAPS LOCK key, is toggled if it is turned on. The key is off and untoggled if the low-order bit is 0. A toggle key's indicator light (if any) on the keyboard will be on when the key is toggled, and off when the key is untoggled.
-        /// </returns>
-        /// <remarks>
-        /// The key status returned from this function changes as a thread reads key messages from its message queue. The status does not reflect the interrupt-level state associated with the hardware. Use the GetAsyncKeyState function to retrieve that information. 
-        /// An application calls GetKeyState in response to a keyboard-input message. This function retrieves the state of the key when the input message was generated. 
-        /// To retrieve state information for all the virtual keys, use the GetKeyboardState function. 
-        /// An application can use the virtual-key code constants VK_SHIFT, VK_CONTROL, and VK_MENU as values for the nVirtKey parameter. This gives the status of the SHIFT, CTRL, or ALT keys without distinguishing between left and right. An application can also use the following virtual-key code constants as values for nVirtKey to distinguish between the left and right instances of those keys. 
-        /// VK_LSHIFT
-        /// VK_RSHIFT
-        /// VK_LCONTROL
-        /// VK_RCONTROL
-        /// VK_LMENU
-        /// VK_RMENU
-        /// 
-        /// These left- and right-distinguishing constants are available to an application only through the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
-        /// </remarks>
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern short GetKeyState(ushort virtualKeyCode);
+        public static extern short GetAsyncKeyState(KeyCode virtualKeyCode);
         #endregion
 
         /// <summary>
@@ -268,13 +240,13 @@ namespace ManagedWin32.Api
         /// Gets the screen coordinates of the current mouse position.
         /// </summary>
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool GetPhysicalCursorPos(ref POINT lpPoint);
+        static extern bool GetPhysicalCursorPos(ref Point lpPoint);
 
-        public static POINT PhysicalCursorPosition
+        public static Point PhysicalCursorPosition
         {
             get
             {
-                var P = new POINT();
+                var P = new Point();
                 GetPhysicalCursorPos(ref P);
                 return P;
             }
@@ -282,16 +254,16 @@ namespace ManagedWin32.Api
 
         #region Cursor Position
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool GetCursorPos(ref POINT lpPoint);
+        static extern bool GetCursorPos(ref Point lpPoint);
 
         [DllImport("user32.dll")]
         static extern bool SetCursorPos(int x, int y);
 
-        public static POINT CursorPosition
+        public static Point CursorPosition
         {
             get
             {
-                var P = new POINT();
+                var P = new Point();
                 GetCursorPos(ref P);
                 return P;
             }
@@ -337,7 +309,7 @@ namespace ManagedWin32.Api
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
-        public static extern bool ShowWindowAsync(IntPtr hWnd, WindowStates nCmdShow);
+        public static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
 
         [DllImport("user32.dll")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -394,7 +366,7 @@ namespace ManagedWin32.Api
         public static extern bool EnumWindows(EnumWindowsProc proc, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowRect(IntPtr hWnd, ref RECT rect);
+        public static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rectangle rect);
 
         [DllImport("user32.dll")]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPositionFlags wFlags);
@@ -419,7 +391,7 @@ namespace ManagedWin32.Api
         public static extern int SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32", SetLastError = true)]
-        public static extern int ShowWindow(IntPtr hWnd, ShowWindowCommand nCmdShow);
+        public static extern int ShowWindow(IntPtr hWnd, ShowWindowFlags nCmdShow);
 
         [DllImport("user32", SetLastError = true)]
         public static extern uint GetSysColor(int nIndex);
@@ -467,7 +439,7 @@ namespace ManagedWin32.Api
         public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
 
         [DllImport("user32", SetLastError = true)]
-        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, uint dwFlags);
+        public static extern IntPtr MonitorFromRect([In] ref Rectangle lprc, uint dwFlags);
 
         [DllImport("user32", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -535,7 +507,7 @@ namespace ManagedWin32.Api
         public static extern IntPtr SendMessageTimeout(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam, SendMessageTimeoutFlags fuFlags, uint uTimeout, out UIntPtr lpdwResult);
 
         [DllImport("user32", SetLastError = true)]
-        public static extern int MapWindowPoints(IntPtr hwndFrom, IntPtr hwndTo, ref POINT lpPoints, [MarshalAs(UnmanagedType.U4)] int cPoints);
+        public static extern int MapWindowPoints(IntPtr hwndFrom, IntPtr hwndTo, ref Point lpPoints, [MarshalAs(UnmanagedType.U4)] int cPoints);
         
         [DllImport("user32", SetLastError = true)]
         public static extern IntPtr SetCapture(IntPtr hWnd);
@@ -556,7 +528,7 @@ namespace ManagedWin32.Api
         public static extern bool EnumThreadWindows(uint dwThreadId, EnumWindowsProc lpfn, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern bool ClientToScreen(IntPtr hWnd, ref POINT lpPoint);
+        public static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
 
         [DllImport("user32.dll")]
         public static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
@@ -572,13 +544,13 @@ namespace ManagedWin32.Api
         public static extern IntPtr GetActiveWindow();
 
         [DllImport("user32.dll")]
-        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+        public static extern bool GetClientRect(IntPtr hWnd, out Rectangle lpRect);
 
         [DllImport("gdi32.dll")]
         public static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
-        public static extern short GetKeyState(int keyCode);
+        public static extern short GetKeyState(KeyCode Keycode);
                 
         [DllImport("user32.dll")]
         public static extern int GetWindowRgn(IntPtr hWnd, IntPtr hRgn);
@@ -597,12 +569,9 @@ namespace ManagedWin32.Api
 
         [DllImport("user32.dll")]
         public static extern IntPtr SetActiveWindow(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
+        
         [DllImport("user32.dll", ExactSpelling = true)]
-        public static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref POINT pptDst, ref Size psize, IntPtr hdcSrc, ref POINT pptSrc, uint crKey, [In] ref BLENDFUNCTION pblend, uint dwFlags);
+        public static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref Point pptDst, ref Size psize, IntPtr hdcSrc, ref Point pptSrc, uint crKey, [In] ref BLENDFUNCTION pblend, uint dwFlags);
                 
         [DllImport("user32.dll")]
         public static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hMod, uint dwThreadId);

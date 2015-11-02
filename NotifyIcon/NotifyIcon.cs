@@ -8,7 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using ManagedWin32.Api;
-using Point = ManagedWin32.Api.POINT;
+using Point = System.Drawing.Point;
 
 namespace ManagedWin32
 {
@@ -223,7 +223,7 @@ namespace ManagedWin32
             popup.Placement = PlacementMode.AbsolutePoint;
             popup.StaysOpen = true;
 
-            POINT position = AppBarInfo.GetTrayLocation();
+            Point position = AppBarInfo.GetTrayLocation();
             position = GetDeviceCoordinates(position);
             popup.HorizontalOffset = position.X - 1;
             popup.VerticalOffset = position.Y - 1;
@@ -388,7 +388,7 @@ namespace ManagedWin32
 
             //get mouse coordinates
             //physical cursor position is supported for Vista and above
-            POINT cursorPosition = (messageSink.Version == NotifyIconVersion.Vista) ? User32.PhysicalCursorPosition : User32.CursorPosition;
+            Point cursorPosition = (messageSink.Version == NotifyIconVersion.Vista) ? User32.PhysicalCursorPosition : User32.CursorPosition;
 
             cursorPosition = GetDeviceCoordinates(cursorPosition);
 

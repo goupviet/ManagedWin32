@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Resources;
 using ManagedWin32.Api;
 using System.Runtime.InteropServices;
+using Point = System.Drawing.Point;
 
 namespace ManagedWin32
 {
@@ -24,10 +25,10 @@ namespace ManagedWin32
         {
             get
             {
-                var rc = new RECT();
+                var rc = new Rectangle();
                 IntPtr rawRect = Marshal.AllocHGlobal(Marshal.SizeOf(rc));
                 bool bResult = User32.SystemParametersInfo(SystemInfoParamsAction.GETWORKAREA, 0, rawRect, 0);
-                rc = (RECT)Marshal.PtrToStructure(rawRect, rc.GetType());
+                rc = (Rectangle)Marshal.PtrToStructure(rawRect, rc.GetType());
 
                 if (bResult)
                 {
@@ -61,7 +62,7 @@ namespace ManagedWin32
         /// Gets the position of the system tray.
         /// </summary>
         /// <returns>Tray coordinates.</returns>
-        public static POINT GetTrayLocation()
+        public static Point GetTrayLocation()
         {
             var info = new AppBarInfo();
             info.GetSystemTaskBarPosition();
@@ -90,7 +91,7 @@ namespace ManagedWin32
                 y = rcWorkArea.Bottom;
             }
 
-            return new POINT { X = x, Y = y };
+            return new Point { X = x, Y = y };
         }
     }
 

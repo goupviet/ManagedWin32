@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace ManagedWin32.Api
 {    
@@ -22,15 +23,6 @@ namespace ManagedWin32.Api
     #endregion
 
     #region User32
-    [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
-    {
-        public int Left;
-        public int Top;
-        public int Right;
-        public int Bottom;
-    }
-
     [Serializable, StructLayout(LayoutKind.Sequential)]
     public struct SCROLLINFO
     {
@@ -47,8 +39,8 @@ namespace ManagedWin32.Api
     public struct WindowInfo
     {
         public uint cbSize;
-        public RECT rcWindow;
-        public RECT rcClient;
+        public Rectangle rcWindow;
+        public Rectangle rcClient;
         public uint dwStyle;
         public uint dwExStyle;
         public uint dwWindowStatus;
@@ -87,22 +79,22 @@ namespace ManagedWin32.Api
         /// <summary>
         /// The current show state of the window.
         /// </summary>
-        public ShowWindowCommand ShowCmd;
+        public ShowWindowFlags ShowCmd;
 
         /// <summary>
         /// The coordinates of the window's upper-left corner when the window is minimized.
         /// </summary>
-        public POINT MinPosition;
+        public Point MinPosition;
 
         /// <summary>
         /// The coordinates of the window's upper-left corner when the window is maximized.
         /// </summary>
-        public POINT MaxPosition;
+        public Point MaxPosition;
 
         /// <summary>
         /// The window's coordinates when the window is in the restored position.
         /// </summary>
-        public RECT NormalPosition;
+        public Rectangle NormalPosition;
 
         /// <summary>
         /// Gets the default (empty) value.
@@ -134,7 +126,7 @@ namespace ManagedWin32.Api
         public int cbSize;        // Specifies the size, in bytes, of the structure. 
         public int flags;         // Specifies the cursor state. This parameter can be one of the following values:
         public IntPtr hCursor;          // Handle to the cursor. 
-        public POINT ptScreenPos;       // A POINT structure that receives the screen coordinates of the cursor. 
+        public Point ptScreenPos;       // A Point structure that receives the screen coordinates of the cursor. 
     }
 
     /// <summary>
@@ -159,9 +151,6 @@ namespace ManagedWin32.Api
         [MarshalAs(UnmanagedType.LPWStr)]
         public string lpszClassName;
     }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct POINT { public int X, Y; }
 
     public enum BitmapImageCompression : int
     {
@@ -484,7 +473,7 @@ namespace ManagedWin32.Api
         public IntPtr hWnd;
         public uint uCallbackMessage;
         public uint uEdge;
-        public RECT rc;
+        public Rectangle rc;
         public int lParam;
     }
 
