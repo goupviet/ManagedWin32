@@ -203,7 +203,7 @@ namespace ManagedWin32
         {
             get
             {
-                var rect = new Rectangle();
+                var rect = new RECT();
                 User32.GetWindowRect(Handle, ref rect);
 
                 return new Size()

@@ -366,7 +366,7 @@ namespace ManagedWin32.Api
         public static extern bool EnumWindows(EnumWindowsProc proc, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rectangle rect);
+        public static extern IntPtr GetWindowRect(IntPtr hWnd, ref RECT rect);
 
         [DllImport("user32.dll")]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPositionFlags wFlags);
@@ -439,7 +439,7 @@ namespace ManagedWin32.Api
         public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
 
         [DllImport("user32", SetLastError = true)]
-        public static extern IntPtr MonitorFromRect([In] ref Rectangle lprc, uint dwFlags);
+        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, uint dwFlags);
 
         [DllImport("user32", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -544,7 +544,7 @@ namespace ManagedWin32.Api
         public static extern IntPtr GetActiveWindow();
 
         [DllImport("user32.dll")]
-        public static extern bool GetClientRect(IntPtr hWnd, out Rectangle lpRect);
+        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
 
         [DllImport("gdi32.dll")]
         public static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);

@@ -22,6 +22,26 @@ namespace ManagedWin32.Api
     }
     #endregion
 
+    [Serializable, StructLayout(LayoutKind.Sequential)]
+    public struct RECT
+    {
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+
+        public RECT(int Left, int Top, int Right, int Bottom)
+        {
+            this = new RECT()
+            {
+                Left = Left,
+                Top = Top,
+                Right = Right,
+                Bottom = Bottom
+            };
+        }
+    }
+
     #region User32
     [Serializable, StructLayout(LayoutKind.Sequential)]
     public struct SCROLLINFO
@@ -39,8 +59,8 @@ namespace ManagedWin32.Api
     public struct WindowInfo
     {
         public uint cbSize;
-        public Rectangle rcWindow;
-        public Rectangle rcClient;
+        public RECT rcWindow;
+        public RECT rcClient;
         public uint dwStyle;
         public uint dwExStyle;
         public uint dwWindowStatus;
@@ -94,7 +114,7 @@ namespace ManagedWin32.Api
         /// <summary>
         /// The window's coordinates when the window is in the restored position.
         /// </summary>
-        public Rectangle NormalPosition;
+        public RECT NormalPosition;
 
         /// <summary>
         /// Gets the default (empty) value.
@@ -473,7 +493,7 @@ namespace ManagedWin32.Api
         public IntPtr hWnd;
         public uint uCallbackMessage;
         public uint uEdge;
-        public Rectangle rc;
+        public RECT rc;
         public int lParam;
     }
 

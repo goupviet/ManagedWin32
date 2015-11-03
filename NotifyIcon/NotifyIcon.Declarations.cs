@@ -25,10 +25,10 @@ namespace ManagedWin32
         {
             get
             {
-                var rc = new Rectangle();
+                var rc = new RECT();
                 IntPtr rawRect = Marshal.AllocHGlobal(Marshal.SizeOf(rc));
                 bool bResult = User32.SystemParametersInfo(SystemInfoParamsAction.GETWORKAREA, 0, rawRect, 0);
-                rc = (Rectangle)Marshal.PtrToStructure(rawRect, rc.GetType());
+                rc = (RECT)Marshal.PtrToStructure(rawRect, rc.GetType());
 
                 if (bResult)
                 {
@@ -67,7 +67,7 @@ namespace ManagedWin32
             var info = new AppBarInfo();
             info.GetSystemTaskBarPosition();
 
-            Rectangle rcWorkArea = info.WorkArea;
+            var rcWorkArea = info.WorkArea;
 
             int x = 0, y = 0;
             if (info.Edge == ScreenEdge.Left)
