@@ -11,6 +11,7 @@ namespace ManagedWin32
         WindowInteropHelper host;
         bool IsDisposed = false;
         int Identifier;
+        Random Randomizer = new Random(DateTime.Now.Millisecond);
 
         public Window Window { get; private set; }
 
@@ -27,7 +28,7 @@ namespace ManagedWin32
             this.Window = Window;
             host = new WindowInteropHelper(Window);
 
-            Identifier = Window.GetHashCode();
+            Identifier = Randomizer.Next();
 
             User32.RegisterHotKey(host.Handle, Identifier, Modifiers, Key);
 
